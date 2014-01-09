@@ -1,0 +1,3 @@
+<%Dir.glob('pages/posts/*.html') do |post|%>
+	<%="<a href='posts/#{File.basename(post)}'>#{File.basename(post, '.html')}"%>
+<%end%>

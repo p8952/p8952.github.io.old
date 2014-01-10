@@ -1,3 +1,5 @@
-<%Dir.glob('pages/posts/*.html') do |post|%>
-	<%="<a href='posts/#{File.basename(post)}'>#{File.basename(post, '.html')}"%>
+<%Dir.glob('templates/posts/*.html').sort.each do |post|%>
+	<%meta_data = File.readlines(post)[0..1]%>
+	<%="<a href='posts/#{File.basename(post)}'>#{meta_data[0]} - #{meta_data[1]}"%>
+	<br>
 <%end%>

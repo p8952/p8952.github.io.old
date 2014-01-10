@@ -17,7 +17,7 @@ task :build do
 	end
 
 	Dir.glob('templates/posts/*.html') do |page|
-		page_content = ERB.new(File.read(page)).result
+		page_content = ERB.new(File.readlines(page)[3..-1].join).result
 		File.write("pages/posts/#{File.basename(page, '.html')}.html", ERB.new(layout).result(ERBVar.instance_eval { binding }))
 	end
 

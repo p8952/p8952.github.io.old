@@ -1,12 +1,10 @@
 h1, h2, h3, h4, h5, h6 {
-	font-family: 'Corben', Georgia, Times, serif;
+	font-family: 'Lato', Georgia, Times, serif;
 }
 p {
 	font-family: 'Nobile', Helvetica, Arial, sans-serif;
 }
-hr {
-	border: 1px solid;
-}
+
 .container {
 	width: 640px;
 }

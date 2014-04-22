@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+	<head>
+        <title>Peter Wilmott - VMware ESXi MEMORY_SIZE_ERROR</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="icon" type="image/ico" href="//github.com/favicon.ico"/>
+		<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+		<link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet">
+		<link href="//fonts.googleapis.com/css?family=Lato:bold|Nobile" rel="stylesheet">
+		<link href="/css/style.css" rel="stylesheet">
+	</head>
+    <body>
+		<div class="container">
+			<h1>
+				<a href="/index.html">Peter Wilmott</a>
+			</h1>
+			<h4>
+				<a href="/index.html">About</a> | 
+				<a href="/blog.html">Blog</a> |
+				<a href="/projects.html">Projects</a>
+			</h4>
+			<hr>
+			<h3>VMware ESXi MEMORY_SIZE_ERROR</h3>
+<p>VMware&#39;s ESXi 5.5 increases the minimum memory requirement from 4GB to 8GB, 
+their own System Requirements document stating that:</p>
+
+<p>&quot;You have 4GB RAM. This is the minimum required to install ESXi 5.5. Provide at
+least 8GB of RAM to take full advantage of ESXi features and run virtual
+machines in typical production environments.&quot;</p>
+
+<p>However when installing ESXi on a system with 4GB of RAM you will receive an
+error along the lines of:</p>
+
+<div class="highlight"><pre><code class="bash">&lt;MEMORY_SIZE_ERROR: This host has 3.71 GiB of RAM. 3.97 GiB are needed&gt;
+</code></pre></div>
+
+<p>You&#39;ll notice that the people writing the System Requirements document are using
+the SI unit of gigabyte (GB) while those writing the ESXi installer are using
+the binary unit of gibibyte (GiB). As such ESXi does not require 4,000,000,000
+bytes of RAM but 4,294,967,296.</p>
+
+<p>Luckily the fix is easy, we can modify the amount minimum amount of RAM the
+installer checks for and it will install without issue.</p>
+
+<p>Switch to the virtual terminal by hitting Alt+F1 and login as &#39;root&#39; with the 
+password field blank.</p>
+
+<p>After logging in you need to tweak the permissions on upgrade_precheck.py:</p>
+
+<div class="highlight"><pre><code class="bash"><span class="nb">cd</span> /usr/lib/vmware/weasel/util/
+rm upgrade_precheck.pyc
+cp upgrade_precheck.py upgrade_precheck.py.tmp
+cp upgrade_precheck.py.tmp upgrade_precheck.py
+chmod 777 upgrade_precheck.py
+</code></pre></div>
+
+<p>Open up upgrade_precheck.py in vi and replace:</p>
+
+<div class="highlight"><pre><code class="python"><span class="n">MEM_MIN_SIZE</span> <span class="o">=</span> <span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="mi">1024</span> <span class="o">-</span> <span class="mi">32</span><span class="p">)</span> <span class="o">*</span> <span class="n">SIZE_MiB</span>
+</code></pre></div>
+
+<p>With:</p>
+
+<div class="highlight"><pre><code class="python"><span class="n">MEM_MIN_SIZE</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="mi">1024</span> <span class="o">-</span> <span class="mi">32</span><span class="p">)</span> <span class="o">*</span> <span class="n">SIZE_MiB</span>
+</code></pre></div>
+
+<p>Then restart the ESXi installer by killing the weasel process.</p>
+
+<div class="highlight"><pre><code class="bash">ps -c <span class="p">|</span> grep weasel
+<span class="nb">kill </span>12345
+</code></pre></div>
+
+<p>You will automatically get switched away from the virtual terminal and can
+continue the installation.</p>
+
+
+		</div>
+    </body>
+</html>

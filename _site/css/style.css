@@ -8,3 +8,8 @@ p {
 .container {
 	width: 640px;
 }
+
+.portrait {
+	float: right;
+	padding: 5px;
+}

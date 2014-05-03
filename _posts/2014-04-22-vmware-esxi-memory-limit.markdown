@@ -5,7 +5,7 @@ date:   2014-04-22 00:00:00
 categories: vmware
 ---
 
-VMware's ESXi 5.5 increases the minimum memory requirement from 4GB to 8GB, 
+VMware's ESXi 5.5 increases the recommend memory requirement from 4GB to 8GB, 
 their own System Requirements document stating that:
 
 "You have 4GB RAM. This is the minimum required to install ESXi 5.5. Provide at

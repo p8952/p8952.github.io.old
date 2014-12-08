@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+	<head>
+        <title>Peter Wilmott - Installing Vagrant In Non-Supported Environments</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="icon" type="image/png" href="res/img/favicon.png"/>
+		<link href="/res/css/bootstrap.min.css" rel="stylesheet">
+		<link href="/res/css/font-awesome.min.css" rel="stylesheet">
+		<link href="/res/css/style.css" rel="stylesheet">
+		<link href="//fonts.googleapis.com/css?family=Lato:bold|Nobile" rel="stylesheet">
+	</head>
+    <body>
+		<div class="container">
+			<h1>
+				<a href="/index.html">Peter Wilmott</a>
+			</h1>
+			<h4>
+				<a href="/index.html">About</a> | 
+				<a href="/notes.html">Notes</a> |
+				<a href="/projects.html">Projects</a>
+			</h4>
+			<hr>
+			<h3>Installing Vagrant In Non-Supported Environments</h3>
+<p>Get sources:</p>
+
+<div class="highlight"><pre><code class="bash">git clone git@github.com:mitchellh/vagrant.git
+<span class="nb">cd </span>vagrant
+git checkout tags/v1.6.5
+</code></pre></div>
+
+<p>Install dependencies:</p>
+
+<div class="highlight"><pre><code class="bash">gem install bundler -v 1.6.9
+bundle install
+</code></pre></div>
+
+<p>Patch Vagrant[1][2]:</p>
+
+<div class="highlight"><pre><code class="bash">diff --git a/bin/vagrant b/bin/vagrant
+index 21630e1..39c6e46 100755
+--- a/bin/vagrant
++++ b/bin/vagrant
+@@ -164,11 +164,6 @@ begin
+   logger.debug<span class="o">(</span><span class="s2">&quot;Creating Vagrant environment&quot;</span><span class="o">)</span>
+   <span class="nv">env</span> <span class="o">=</span> Vagrant::Environment.new<span class="o">(</span>opts<span class="o">)</span>
+ 
+-  <span class="k">if</span> !Vagrant.in_installer? <span class="o">&amp;&amp;</span> !Vagrant.very_quiet?
+-    <span class="c"># If we&#39;re not in the installer, warn.</span>
+-    env.ui.warn<span class="o">(</span>I18n.t<span class="o">(</span><span class="s2">&quot;vagrant.general.not_in_installer&quot;</span><span class="o">)</span> + <span class="s2">&quot;\n&quot;</span>, prefix: <span class="nb">false</span><span class="o">)</span>
+-  end
+-
+   begin
+     <span class="c"># Execute the CLI interface, and exit with the proper error code</span>
+     <span class="nv">exit_status</span> <span class="o">=</span> env.cli<span class="o">(</span>argv<span class="o">)</span>
+diff --git a/lib/vagrant/bundler.rb b/lib/vagrant/bundler.rb
+index 05867da..bc4a216 100644
+--- a/lib/vagrant/bundler.rb
++++ b/lib/vagrant/bundler.rb
+@@ -18,8 +18,7 @@ module Vagrant
+     end
+ 
+     def initialize
+-      @enabled <span class="o">=</span> <span class="nb">true </span><span class="k">if </span>ENV<span class="o">[</span><span class="s2">&quot;VAGRANT_INSTALLER_ENV&quot;</span><span class="o">]</span> <span class="o">||</span>
+-        ENV<span class="o">[</span><span class="s2">&quot;VAGRANT_FORCE_BUNDLER&quot;</span><span class="o">]</span>
++      @enabled <span class="o">=</span> <span class="nb">true</span>
+       @enabled  <span class="o">=</span> !::Bundler::SharedHelpers.in_bundle? <span class="k">if</span> !@enabled
+       @monitor  <span class="o">=</span> Monitor.new
+
+---
+</code></pre></div>
+
+<p>Test and install:</p>
+
+<div class="highlight"><pre><code class="bash">rake <span class="nb">test</span>:unit
+rake install
+</code></pre></div>
+
+<p>[1]: Without this patch Vagrant will give the following warning:</p>
+
+<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>vagrant status
+You appear to be running Vagrant outside of the official installers.
+Note that the installers are what ensure that Vagrant has all required
+dependencies, and Vagrant assumes that these dependencies exist. By
+running outside of the installer environment, Vagrant may not <span class="k">function</span>
+properly. To remove this warning, install Vagrant using one of the
+official packages from vagrantup.com.
+</code></pre></div>
+
+<p>[2]: Without this patch Vagrant will give the following error:</p>
+
+<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>vagrant plugin install vagrant-aws
+Installing the <span class="s1">&#39;vagrant-aws&#39;</span> plugin. This can take a few minutes...
+Vagrant<span class="err">&#39;</span>s built-in bundler management mechanism is disabled because
+Vagrant is running in an external bundler environment. In these
+cases, plugin management does not work with Vagrant. To install
+plugins, use your own Gemfile. To load plugins, either put the
+plugins in the <span class="sb">`</span>plugins<span class="sb">`</span> group in your Gemfile or manually require
+them in a Vagrantfile.
+</code></pre></div>
+
+<hr>
+Comments? Tweet me <a href="https://twitter.com/p8952_">@p8952_</a>
+<br>
+<br>
+
+		</div>
+    </body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+	<head>
+        <title>Peter Wilmott - Listing EC2 Instances In All Regions</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="icon" type="image/png" href="res/img/favicon.png"/>
+		<link href="/res/css/bootstrap.min.css" rel="stylesheet">
+		<link href="/res/css/font-awesome.min.css" rel="stylesheet">
+		<link href="/res/css/style.css" rel="stylesheet">
+		<link href="//fonts.googleapis.com/css?family=Lato:bold|Nobile" rel="stylesheet">
+	</head>
+    <body>
+		<div class="container">
+			<h1>
+				<a href="/index.html">Peter Wilmott</a>
+			</h1>
+			<h4>
+				<a href="/index.html">About</a> | 
+				<a href="/notes.html">Notes</a> |
+				<a href="/projects.html">Projects</a>
+			</h4>
+			<hr>
+			<h3>Listing EC2 Instances In All Regions</h3>
+<p>When working with EC2 instances across multiple regions I&#39;ve found it&#39;s near
+impossible to get a good overview of what is running where. This can be
+especially annoying when you are automatically lunching a number of short
+lived instances.</p>
+
+<p>To prevent me having to go through 9 different web pages to see what I
+currently have running I found it easier to just use the API and list active
+instances from the CLI.</p>
+
+<p>Install dependencies:</p>
+
+<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>gem install aws-sdk pmap
+</code></pre></div>
+
+<p>/usr/local/bin/aws-list:</p>
+
+<div class="highlight"><pre><code class="ruby"><span class="c1">#!/usr/bin/ruby</span>
+
+<span class="nb">require</span> <span class="s1">&#39;aws-sdk&#39;</span>
+<span class="nb">require</span> <span class="s1">&#39;pmap&#39;</span>
+
+<span class="k">def</span> <span class="nf">ec2</span><span class="p">(</span><span class="n">region</span> <span class="o">=</span> <span class="s1">&#39;us-east-1&#39;</span><span class="p">)</span>
+    <span class="n">ec2</span> <span class="o">=</span> <span class="no">AWS</span><span class="o">::</span><span class="no">EC2</span><span class="o">.</span><span class="n">new</span><span class="p">(</span>
+        <span class="n">access_key_id</span><span class="p">:</span> <span class="no">ENV</span><span class="o">[</span><span class="s1">&#39;AWS_ACCESS_KEY&#39;</span><span class="o">]</span><span class="p">,</span>
+        <span class="n">secret_access_key</span><span class="p">:</span> <span class="no">ENV</span><span class="o">[</span><span class="s1">&#39;AWS_SECRET_KEY&#39;</span><span class="o">]</span><span class="p">,</span>
+        <span class="ss">region</span><span class="p">:</span> <span class="n">region</span>
+    <span class="p">)</span>
+    <span class="n">ec2</span>
+<span class="k">end</span>
+
+<span class="k">def</span> <span class="nf">list_instances</span>
+    <span class="n">instances</span> <span class="o">=</span> <span class="o">[]</span>
+    <span class="n">ec2</span><span class="o">.</span><span class="n">regions</span><span class="o">.</span><span class="n">peach</span> <span class="k">do</span> <span class="o">|</span><span class="n">region</span><span class="o">|</span>
+        <span class="n">ec2</span><span class="o">.</span><span class="n">regions</span><span class="o">[</span><span class="n">region</span><span class="o">.</span><span class="n">name</span><span class="o">].</span><span class="n">instances</span><span class="o">.</span><span class="n">peach</span> <span class="k">do</span> <span class="o">|</span><span class="n">instance</span><span class="o">|</span>
+            <span class="k">next</span> <span class="k">if</span> <span class="n">instance</span><span class="o">.</span><span class="n">status</span> <span class="o">==</span> <span class="ss">:terminated</span>
+            <span class="n">instances</span> <span class="o">&lt;&lt;</span> <span class="n">instance</span>
+        <span class="k">end</span>
+    <span class="k">end</span>
+    <span class="n">instances</span>
+<span class="k">end</span>
+
+<span class="n">list_instances</span><span class="o">.</span><span class="n">peach</span> <span class="k">do</span> <span class="o">|</span><span class="n">instance</span><span class="o">|</span>
+    <span class="nb">puts</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">instance</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="se">\t\t</span><span class="si">#{</span><span class="n">instance</span><span class="o">.</span><span class="n">availability_zone</span><span class="si">}</span><span class="se">\t\t</span><span class="si">#{</span><span class="n">instance</span><span class="o">.</span><span class="n">status</span><span class="si">}</span><span class="se">\t\t</span><span class="si">#{</span><span class="n">instance</span><span class="o">.</span><span class="n">ip_address</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
+<span class="k">end</span>
+</code></pre></div>
+
+<p>Listing instances:</p>
+
+<div class="highlight"><pre><code class="bash"><span class="nv">$ </span><span class="nb">export </span><span class="nv">AWS_ACCESS_KEY</span><span class="o">=</span><span class="s2">&quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;</span>
+<span class="nv">$ </span><span class="nb">export </span><span class="nv">AWS_SECRET_KEY</span><span class="o">=</span><span class="s2">&quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890&quot;</span>
+<span class="nv">$ </span>aws-list
+i-16b78754          eu-west-1a          running         54.77.218.113
+i-0025e1e6          eu-west-1a          running         54.76.129.127
+i-3926e2df          eu-west-1a          running         54.154.52.146
+i-4924e0af          eu-west-1a          running         54.154.52.77
+i-c424e022          eu-west-1a          running         54.72.131.127
+i-0c25e1ea          eu-west-1a          running         54.154.51.140
+i-9c25e17a          eu-west-1a          running         54.154.49.204
+i-4b24e0ad          eu-west-1a          running         54.77.225.135
+i-33e929f2          eu-central-1b       running         54.93.164.233
+i-c324e025          eu-west-1a          running         54.76.98.165
+i-3f26e2d9          eu-west-1a          running         54.154.47.126
+i-8027e366          eu-west-1a          running         54.154.20.140
+i-0d25e1eb          eu-west-1a          running         54.77.100.132
+i-d718edd9          us-west-2c          running         54.149.35.63
+i-0c2028e6          us-east-1a          running         54.164.193.104
+i-5b95e54e          sa-east-1a          running         54.94.165.7
+i-2dad38de          ap-northeast-1a     running         54.65.157.129
+i-625a80af          ap-southeast-1a     running         54.169.195.201
+i-a06e006f          ap-southeast-2a     running         54.66.184.34
+i-2dbce5e5          us-west-1a          running         54.67.67.18
+</code></pre></div>
+
+<hr>
+Comments? Tweet me <a href="https://twitter.com/p8952_">@p8952_</a>
+<br>
+<br>
+
+		</div>
+    </body>
+</html>

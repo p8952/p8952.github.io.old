@@ -23,15 +23,15 @@
 			<h3>Installing Vagrant In Non-Supported Environments</h3>
 <p>Get sources:</p>
 
-<div class="highlight"><pre><code class="bash">git clone git@github.com:mitchellh/vagrant.git
-<span class="nb">cd </span>vagrant
-git checkout tags/v1.6.5
+<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>git clone git@github.com:mitchellh/vagrant.git
+<span class="nv">$ </span><span class="nb">cd </span>vagrant
+<span class="nv">$ </span>git checkout tags/v1.6.5
 </code></pre></div>
 
 <p>Install dependencies:</p>
 
-<div class="highlight"><pre><code class="bash">gem install bundler -v 1.6.9
-bundle install
+<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>gem install bundler -v 1.6.9
+<span class="nv">$ </span>bundle install
 </code></pre></div>
 
 <p>Patch Vagrant[1][2]:</p>
@@ -43,7 +43,7 @@ index 21630e1..39c6e46 100755
 @@ -164,11 +164,6 @@ begin
    logger.debug<span class="o">(</span><span class="s2">&quot;Creating Vagrant environment&quot;</span><span class="o">)</span>
    <span class="nv">env</span> <span class="o">=</span> Vagrant::Environment.new<span class="o">(</span>opts<span class="o">)</span>
- 
+
 -  <span class="k">if</span> !Vagrant.in_installer? <span class="o">&amp;&amp;</span> !Vagrant.very_quiet?
 -    <span class="c"># If we&#39;re not in the installer, warn.</span>
 -    env.ui.warn<span class="o">(</span>I18n.t<span class="o">(</span><span class="s2">&quot;vagrant.general.not_in_installer&quot;</span><span class="o">)</span> + <span class="s2">&quot;\n&quot;</span>, prefix: <span class="nb">false</span><span class="o">)</span>
@@ -58,7 +58,7 @@ index 05867da..bc4a216 100644
 +++ b/lib/vagrant/bundler.rb
 @@ -18,8 +18,7 @@ module Vagrant
      end
- 
+
      def initialize
 -      @enabled <span class="o">=</span> <span class="nb">true </span><span class="k">if </span>ENV<span class="o">[</span><span class="s2">&quot;VAGRANT_INSTALLER_ENV&quot;</span><span class="o">]</span> <span class="o">||</span>
 -        ENV<span class="o">[</span><span class="s2">&quot;VAGRANT_FORCE_BUNDLER&quot;</span><span class="o">]</span>
@@ -71,8 +71,8 @@ index 05867da..bc4a216 100644
 
 <p>Test and install:</p>
 
-<div class="highlight"><pre><code class="bash">rake <span class="nb">test</span>:unit
-rake install
+<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>rake <span class="nb">test</span>:unit
+<span class="nv">$ </span>rake install
 </code></pre></div>
 
 <p>[1]: Without this patch Vagrant will give the following warning:</p>

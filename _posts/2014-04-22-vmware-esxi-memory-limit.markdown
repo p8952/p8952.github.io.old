@@ -5,7 +5,7 @@ date:   2014-04-22 00:00:00
 categories: vmware
 ---
 
-VMware's ESXi 5.5 increases the recommend memory requirement from 4GB to 8GB, 
+VMware's ESXi 5.5 increases the recommend memory requirement from 4GB to 8GB,
 their own System Requirements document stating that:
 
 "You have 4GB RAM. This is the minimum required to install ESXi 5.5. Provide at
@@ -27,17 +27,17 @@ bytes of RAM but 4,294,967,296.
 Luckily the fix is easy, we can modify the amount minimum amount of RAM the
 installer checks for and it will install without issue.
 
-Switch to the virtual terminal by hitting Alt+F1 and login as 'root' with the 
+Switch to the virtual terminal by hitting Alt+F1 and login as 'root' with the
 password field blank.
 
 After logging in you need to tweak the permissions on upgrade_precheck.py:
 
 {% highlight bash %}
-cd /usr/lib/vmware/weasel/util/
-rm upgrade_precheck.pyc
-cp upgrade_precheck.py upgrade_precheck.py.tmp
-cp upgrade_precheck.py.tmp upgrade_precheck.py
-chmod 777 upgrade_precheck.py
+$ cd /usr/lib/vmware/weasel/util/
+$ rm upgrade_precheck.pyc
+$ cp upgrade_precheck.py upgrade_precheck.py.tmp
+$ cp upgrade_precheck.py.tmp upgrade_precheck.py
+$ chmod 777 upgrade_precheck.py
 {% endhighlight %}
 
 Open up upgrade_precheck.py in vi and replace:
@@ -55,8 +55,8 @@ MEM_MIN_SIZE = (2 * 1024 - 32) * SIZE_MiB
 Then restart the ESXi installer by killing the weasel process.
 
 {% highlight bash %}
-ps -c | grep weasel
-kill 12345
+$ ps -c | grep weasel
+$ kill 12345
 {% endhighlight %}
 
 You will automatically get switched away from the virtual terminal and can

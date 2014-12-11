@@ -21,7 +21,7 @@
 			</h4>
 			<hr>
 			<h3>VMware ESXi MEMORY_SIZE_ERROR</h3>
-<p>VMware&#39;s ESXi 5.5 increases the recommend memory requirement from 4GB to 8GB, 
+<p>VMware&#39;s ESXi 5.5 increases the recommend memory requirement from 4GB to 8GB,
 their own System Requirements document stating that:</p>
 
 <p>&quot;You have 4GB RAM. This is the minimum required to install ESXi 5.5. Provide at
@@ -42,16 +42,16 @@ bytes of RAM but 4,294,967,296.</p>
 <p>Luckily the fix is easy, we can modify the amount minimum amount of RAM the
 installer checks for and it will install without issue.</p>
 
-<p>Switch to the virtual terminal by hitting Alt+F1 and login as &#39;root&#39; with the 
+<p>Switch to the virtual terminal by hitting Alt+F1 and login as &#39;root&#39; with the
 password field blank.</p>
 
 <p>After logging in you need to tweak the permissions on upgrade_precheck.py:</p>
 
-<div class="highlight"><pre><code class="bash"><span class="nb">cd</span> /usr/lib/vmware/weasel/util/
-rm upgrade_precheck.pyc
-cp upgrade_precheck.py upgrade_precheck.py.tmp
-cp upgrade_precheck.py.tmp upgrade_precheck.py
-chmod 777 upgrade_precheck.py
+<div class="highlight"><pre><code class="bash"><span class="nv">$ </span><span class="nb">cd</span> /usr/lib/vmware/weasel/util/
+<span class="nv">$ </span>rm upgrade_precheck.pyc
+<span class="nv">$ </span>cp upgrade_precheck.py upgrade_precheck.py.tmp
+<span class="nv">$ </span>cp upgrade_precheck.py.tmp upgrade_precheck.py
+<span class="nv">$ </span>chmod 777 upgrade_precheck.py
 </code></pre></div>
 
 <p>Open up upgrade_precheck.py in vi and replace:</p>
@@ -66,8 +66,8 @@ chmod 777 upgrade_precheck.py
 
 <p>Then restart the ESXi installer by killing the weasel process.</p>
 
-<div class="highlight"><pre><code class="bash">ps -c <span class="p">|</span> grep weasel
-<span class="nb">kill </span>12345
+<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>ps -c <span class="p">|</span> grep weasel
+<span class="nv">$ </span><span class="nb">kill </span>12345
 </code></pre></div>
 
 <p>You will automatically get switched away from the virtual terminal and can

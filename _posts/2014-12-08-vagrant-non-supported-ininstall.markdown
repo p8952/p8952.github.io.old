@@ -7,15 +7,15 @@ categories: ruby vagrant
 
 Get sources:
 {% highlight bash %}
-git clone git@github.com:mitchellh/vagrant.git
-cd vagrant
-git checkout tags/v1.6.5
+$ git clone git@github.com:mitchellh/vagrant.git
+$ cd vagrant
+$ git checkout tags/v1.6.5
 {% endhighlight %}
 
 Install dependencies:
 {% highlight bash %}
-gem install bundler -v 1.6.9
-bundle install
+$ gem install bundler -v 1.6.9
+$ bundle install
 {% endhighlight %}
 
 Patch Vagrant[1][2]:
@@ -27,7 +27,7 @@ index 21630e1..39c6e46 100755
 @@ -164,11 +164,6 @@ begin
    logger.debug("Creating Vagrant environment")
    env = Vagrant::Environment.new(opts)
- 
+
 -  if !Vagrant.in_installer? && !Vagrant.very_quiet?
 -    # If we're not in the installer, warn.
 -    env.ui.warn(I18n.t("vagrant.general.not_in_installer") + "\n", prefix: false)
@@ -42,7 +42,7 @@ index 05867da..bc4a216 100644
 +++ b/lib/vagrant/bundler.rb
 @@ -18,8 +18,7 @@ module Vagrant
      end
- 
+
      def initialize
 -      @enabled = true if ENV["VAGRANT_INSTALLER_ENV"] ||
 -        ENV["VAGRANT_FORCE_BUNDLER"]
@@ -55,8 +55,8 @@ index 05867da..bc4a216 100644
 
 Test and install:
 {% highlight bash %}
-rake test:unit
-rake install
+$ rake test:unit
+$ rake install
 {% endhighlight %}
 
 [1]: Without this patch Vagrant will give the following warning:

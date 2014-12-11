@@ -7,7 +7,7 @@ categories: ruby aws
 
 When working with EC2 instances across multiple regions I've found it's near
 impossible to get a good overview of what is running where. This can be
-especially annoying when you are automatically lunching a number of short
+especially annoying when you are automatically launching a number of short
 lived instances.
 
 To prevent me having to go through 9 different web pages to see what I

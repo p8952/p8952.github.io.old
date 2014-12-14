@@ -2,7 +2,7 @@
 layout: post
 title:  "Installing Vagrant In Non-Supported Environments"
 date:   2014-12-08 00:00:00
-categories: ruby vagrant
+categories: ruby
 ---
 
 Get sources:

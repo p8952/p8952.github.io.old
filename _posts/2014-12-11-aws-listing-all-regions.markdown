@@ -2,7 +2,7 @@
 layout: post
 title:  "Listing EC2 Instances In All Regions"
 date:   2014-12-11 00:00:00
-categories: aws ruby
+categories: aws
 ---
 
 When working with EC2 instances across multiple regions I've found it's near

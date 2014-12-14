@@ -16,7 +16,7 @@ However when installing ESXi on a system with 4GB of RAM you will receive an
 error along the lines of:
 
 {% highlight bash %}
-<MEMORY_SIZE_ERROR: This host has 3.71 GiB of RAM. 3.97 GiB are needed>
+<MEMORY_SIZE ERROR: This host has 3.71 GiB of RAM. 3.97 GiB are needed>
 {% endhighlight %}
 
 You'll notice that the people writing the System Requirements document are using

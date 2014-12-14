@@ -1,8 +1,8 @@
 h1, h2, h3, h4, h5, h6 {
-	font-family: 'Lato', Georgia, Times, serif;
+	font-family: Georgia, Times, serif;
 }
 p {
-	font-family: 'Nobile', Helvetica, Arial, sans-serif;
+	font-family: Helvetica, Arial, sans-serif;
 }
 
 .container {
@@ -12,4 +12,20 @@ p {
 .portrait {
 	float: right;
 	padding: 5px;
+}
+
+.graph-container {
+	width: 640px;
+	height: 512px;
+}
+
+.graph-plot {
+	width: 80%;
+	height: 100%;
+	float: left;
+}
+
+.graph-options {
+	width: 20%;
+	float: right;
 }

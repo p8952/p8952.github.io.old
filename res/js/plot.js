@@ -2,11 +2,11 @@ $(function() {
 	var datasets = {
 		"gcc_4.4_O2": {
 			label: "GCC 4.4 O2",
-			data: [[1, 6]]
+			data: [[1, 153]]
 		},
 		"gcc_4.4_O3": {
 			label: "GCC 4.4 O3",
-			data: [[2, 12]]
+			data: [[2, 150]]
 		},
 		"gcc_4.7_O2": {
 			label: "GCC 4.7 O2",
@@ -56,7 +56,7 @@ $(function() {
 		++i;
 	});
 
-	var choiceContainer = $("#graph-options");
+	var choiceContainer = $("#graph-total-options");
 	$.each(datasets, function(key, val) {
 		choiceContainer.append("<br/><input type='checkbox' name='" + key +
 			"' checked='checked' id='id" + key + "'></input>" +
@@ -79,7 +79,7 @@ $(function() {
 				data.push(datasets[key]);
 			}
 		});
-		$.plot("#graph-plot", data, {
+		$.plot("#graph-total-plot", data, {
 			legend: {
 				show: false
 			},

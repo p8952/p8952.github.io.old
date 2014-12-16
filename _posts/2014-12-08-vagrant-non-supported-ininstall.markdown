@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Installing Vagrant In Non-Supported Environments"
+title:  "Installing Vagrant in non-supported environments"
 date:   2014-12-08 00:00:00
 categories: ruby
 ---

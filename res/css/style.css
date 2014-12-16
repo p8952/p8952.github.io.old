@@ -14,18 +14,18 @@ p {
 	padding: 5px;
 }
 
-.graph-container {
+.graph-total-container {
 	width: 640px;
 	height: 512px;
 }
 
-.graph-plot {
+.graph-total-plot {
 	width: 80%;
 	height: 100%;
 	float: left;
 }
 
-.graph-options {
+.graph-total-options {
 	width: 20%;
 	float: right;
 }

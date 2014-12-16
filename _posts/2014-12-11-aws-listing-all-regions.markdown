@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Listing EC2 Instances In All Regions"
+title:  "Listing EC2 instances in all regions"
 date:   2014-12-11 00:00:00
 categories: aws
 ---

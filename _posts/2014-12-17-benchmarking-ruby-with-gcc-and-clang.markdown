@@ -29,7 +29,8 @@ version of Ruby was 2.1 while the tests themselves are from [Antonio Cangiano's
 Ruby Benchmark Suite][4]. The tooling used to run them is [available on my
 GitHub][5] if you want to try this out for yourself.
 
-The full test suite was run for each of the following compiler variants:
+The full test suite was run for each of the following compiler variants, O3 was
+not used with Clang since it only adds a single additional flag:
 
 * GCC 4.4 with O2 - Ships with Ubuntu 10.04 (Lucid) & RHEL/CentOS 6
 * GCC 4.4 with O3
@@ -39,10 +40,10 @@ The full test suite was run for each of the following compiler variants:
 * GCC 4.8 with O3
 * GCC 4.9 with O2 - Ships with Debian 8 (Jessie) & Ubuntu 14.04 (Trusty)
 * GCC 4.9 with O3
-* Clang 3.2
-* Clang 3.3
-* Clang 3.4
-* Clang 3.5
+* Clang 3.2 with O2
+* Clang 3.3 with O2
+* Clang 3.4 with O2
+* Clang 3.5 with O2
 
 Each variant was then given a number of points per test based on it's ranking,
 0 points to the variant which performed the best, 1 to the second best, and so

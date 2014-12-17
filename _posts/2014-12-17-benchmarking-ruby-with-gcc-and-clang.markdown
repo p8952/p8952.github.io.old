@@ -73,7 +73,7 @@ performance.
 
 4. The latest version of GCC (4.9) is ahead by a clear margin.
 
-5. All O3 variants expect GGC 4.8 performed worse than their O2 counterparts.
+5. All O3 variants expect GCC 4.8 performed worse than their O2 counterparts.
 This is not that unusual and very often using O3 will degrade performance or
 even break an application all together. However the default Makefile shipped
 with Ruby 1.9.3 and above uses O3, which appears to hurt performance.

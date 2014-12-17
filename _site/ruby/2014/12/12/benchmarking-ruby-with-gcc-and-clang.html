@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+	<head>
+        <title>Peter Wilmott - Benchmarking Ruby with GCC (4.4, 4.7, 4.8, 4.9) and Clang (3.2, 3.3, 3.4, 3.5)</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="icon" type="image/png" href="/res/img/favicon.png"/>
+		<link href="/res/css/bootstrap.min.css" rel="stylesheet">
+		<link href="/res/css/font-awesome.min.css" rel="stylesheet">
+		<link href="/res/css/style.css" rel="stylesheet">
+		<script>
+			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+			ga('create', 'UA-57627294-1', 'auto');
+			ga('send', 'pageview');
+		</script>
+	</head>
+    <body>
+		<div class="container">
+			<h1>
+				<a href="/index.html">Peter Wilmott</a>
+			</h1>
+			<h4>
+				<a href="/index.html">About</a> |
+				<a href="/notes.html">Notes</a> |
+				<a href="/projects.html">Projects</a>
+			</h4>
+			<hr>
+			<h3>Benchmarking Ruby with GCC (4.4, 4.7, 4.8, 4.9) and Clang (3.2, 3.3, 3.4, 3.5)</h3>
+<script language="javascript" type="text/javascript" src="/res/js/jquery.min.js"></script>
+
+<script language="javascript" type="text/javascript" src="/res/js/jquery.flot.min.js"></script>
+
+<script language="javascript" type="text/javascript" src="/res/js/jquery.flot.axislabels.js"></script>
+
+<script language="javascript" type="text/javascript" src="/res/js/jquery.flot.tickrotor.js"></script>
+
+<script language="javascript" type="text/javascript" src="/res/js/plot.js"></script>
+
+<p>This note is partially inspired by <a href="http://cirandas.net/brauliobo/blog/ruby-compiled-with-clang-is-8-faster-than-with-gcc-4.9-and-44-faster-than-with-gcc-4.7.2">Braulio Bhavamitra&#39;s comments about Ruby
+being faster when compiled with Clang rather than GCC</a> and partially by
+<a href="https://www.usenix.org/conference/lisa13/technical-sessions/plenary/gregg">Brendan Gregg&#39;s comments about compiler optimization during his Flame Graphs
+talk at USENIX LISA13</a> (0:33:30).</p>
+
+<p>In short I wanted to look at what kind of performance we are leaving on the
+table by not taking advantage of 1) The newest compiler versions &amp; 2) The
+most aggressive compiler optimizations. This is especially perniant to those of
+us deploying applications on PaaS infrastructure where we often have zero
+control over such things. Does the cost-benefit analysis still work out the same
+when you take into account a 10/20/30% performance hit?</p>
+
+<p>All tests were run on AWS from an m3.medium EC2 instance and the AMI used was
+a modified copy of one of my weekly generated <a href="https://p8952.info/projects.html">Gentoo Linux AMIs</a>. The
+version of Ruby was 2.1 while the tests themselves are from <a href="https://github.com/acangiano/ruby-benchmark-suite">Antonio Cangiano&#39;s
+Ruby Benchmark Suite</a>. The tooling used to run them is <a href="https://github.com/p8952/ruby-compiler-benchmark">available on my
+GitHub</a> if you want to try this out for yourself.</p>
+
+<p>The full test suite was run for each of the following compiler variants:</p>
+
+<ul>
+<li>GCC 4.4 with O2 - Ships with Ubuntu 10.04 (Lucid) &amp; RHEL/CentOS 6</li>
+<li>GCC 4.4 with O3</li>
+<li>GCC 4.7 with O2 - Ships with Debian 7 (Wheezy) &amp; Ubuntu 12.04 (Precise)</li>
+<li>GCC 4.7 with O3</li>
+<li>GCC 4.8 with O2 - Ships with RHEL/CentOS 7</li>
+<li>GCC 4.8 with O3</li>
+<li>GCC 4.9 with O2 - Ships with Debian 8 (Jessie) &amp; Ubuntu 14.04 (Trusty)</li>
+<li>GCC 4.9 with O3</li>
+<li>Clang 3.2</li>
+<li>Clang 3.3</li>
+<li>Clang 3.4</li>
+<li>Clang 3.5</li>
+</ul>
+
+<p>Each variant was then given a number of points per test based on it&#39;s ranking,
+0 points to the variant which performed the best, 1 to the second best, and so
+on until 11 points were given to the variant which performed the worst.</p>
+
+<p>These scores were then added up per variant and plotted onto a bar graph to try
+and visualize performance per variant.</p>
+
+<p><center>
+    <h4>Performance per variant (Lower is better)</h4>
+    <small class="pull-right"><a href="/res/misc/raw_data.csv">Raw Data</a></small>
+</center>
+<div class="graph-total-container">
+    <div class="graph-total-plot" id="graph-total-plot"></div>
+    <p class="graph-total-options" id="graph-total-options"></p>
+</div></p>
+
+<p>A few interesting things jumped out to me from this data:</p>
+
+<ol>
+<li><p>Your choice of compiler does have a non-negligible affect on the performance
+of your runtime environment.</p></li>
+<li><p>Modern versions of GCC (4.7 &amp; 4.8) and Clang (3.2 &amp; 3.3) have very similar
+performance.</p></li>
+<li><p>Clang 3.4 seems to suffer from some performance regressions in this context.</p></li>
+<li><p>The latest version of GCC (4.9) is ahead by a clear margin.</p></li>
+<li><p>All O3 variants expect GGC 4.8 performed worse than their O2 counterparts.
+This is not that unusual and very often using O3 will degrade performance or
+even break an application all together. However the default Makefile shipped
+with Ruby 1.9.3 and above uses O3, which appears to hurt performance.</p></li>
+</ol>
+
+<p>Of course the standard disclaimers apply. Benchmarking correctly is hard, you
+may not see the same results in your specific environment, do not immediately
+recompile everything in prod using GCC 4.9, ect.</p>
+
+<hr>
+<p class="pull-left">Enjoyed reading? <a href="https://twitter.com/intent/tweet?text=Benchmarking Ruby with GCC (4.4, 4.7, 4.8, 4.9) and Clang (3.2, 3.3, 3.4, 3.5)&url=https://p8952.info/ruby/2014/12/12/benchmarking-ruby-with-gcc-and-clang.html&via=p8952_">Share on Twitter</a></p>
+<p class="pull-right">Comments? Tweet me <a href="https://twitter.com/p8952_">@p8952_</a></p>
+<br>
+<br>
+
+		</div>
+    </body>
+</html>

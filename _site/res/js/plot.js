@@ -2,57 +2,60 @@ $(function() {
 	var datasets = {
 		"gcc_4.4_O2": {
 			label: "GCC 4.4 O2",
-			data: [[1, 153]]
+			data: [[1, 810]]
 		},
 		"gcc_4.4_O3": {
 			label: "GCC 4.4 O3",
-			data: [[2, 150]]
+			data: [[2, 829]]
 		},
 		"gcc_4.7_O2": {
 			label: "GCC 4.7 O2",
-			data: [[3, 18]]
+			data: [[3, 667]]
 		},
 		"gcc_4.7_O3": {
 			label: "GCC 4.7 O3",
-			data: [[4, 24]]
+			data: [[4, 707]]
 		},
 		"gcc_4.8_O2": {
 			label: "GCC 4.8 O2",
-			data: [[5, 30]]
+			data: [[5, 650]]
 		},
 		"gcc_4.8_O3": {
 			label: "GCC 4.8 O3",
-			data: [[6, 36]]
+			data: [[6, 603]]
 		},
 		"gcc_4.9_O2": {
 			label: "GCC 4.9 O2",
-			data: [[7, 42]]
+			data: [[7, 481]]
 		},
 		"gcc_4.9_O3": {
 			label: "GCC 4.9 O3",
-			data: [[7, 48]]
+			data: [[7, 553]]
 		},
 		"clang_3.2": {
 			label: "Clang 3.2",
-			data: [[7, 30]]
+			data: [[7, 640]]
 		},
 		"clang_3.3": {
 			label: "Clang 3.3",
-			data: [[7, 36]]
+			data: [[7, 623]]
 		},
 		"clang_3.4": {
 			label: "Clang 3.4",
-			data: [[7, 42]]
+			data: [[7, 723]]
 		},
 		"clang_3,5": {
 			label: "Clang 3.5",
-			data: [[8, 48]]
+			data: [[8, 592]]
 		}
 	};
 
 	var i = 0;
 	$.each(datasets, function(key, val) {
 		val.color = i;
+		if (i == 10) {
+			++i;
+		}
 		++i;
 	});
 

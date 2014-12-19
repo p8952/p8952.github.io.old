@@ -9,7 +9,9 @@ categories: ruby
 <script language="javascript" type="text/javascript" src="/res/js/jquery.flot.min.js"></script>
 <script language="javascript" type="text/javascript" src="/res/js/jquery.flot.axislabels.js"></script>
 <script language="javascript" type="text/javascript" src="/res/js/jquery.flot.tickrotor.js"></script>
-<script language="javascript" type="text/javascript" src="/res/js/plot.js"></script>
+<script language="javascript" type="text/javascript" src="/res/js/jquery.flot.navigate.js"></script>
+<script language="javascript" type="text/javascript" src="/res/js/graph-total.js"></script>
+<script language="javascript" type="text/javascript" src="/res/js/graph-percent.js"></script>
 
 This note is partially inspired by [Braulio Bhavamitra's comments about Ruby
 being faster when compiled with Clang rather than GCC][1] and partially by
@@ -81,6 +83,30 @@ with Ruby 1.9.3 and above uses O3, which appears to hurt performance.
 Of course the standard disclaimers apply. Benchmarking correctly is hard, you
 may not see the same results in your specific environment, do not immediately
 recompile everything in prod using GCC 4.9, ect.
+
+#### Update:
+
+Lots of people asked to see the raw data plotted as well as the relative
+performance, so here it is. For each test the average score for all varients was
+calculated as this was named as the baseline and marked as 0. Then for each
+test/varient a percentage was calculated showing how much faster/slower it was
+than the baseline.
+
+For example on test eight GCC 4.9 O2 was 7% faster than the baseline while
+Clang 3.5 was 2% faster than the baseline. From this we can infer that GCC 4.9
+O2 was 5% faster than Clang 3.5 in that test.
+
+Since this makes the graph very cluttered it is best that you only select a few
+varients at once, you can also pan and zoom.
+
+<center>
+	<h4>Percentage faster/slower than baseline (Lower is better)</h4>
+	<small class="pull-right"><a href="/res/misc/raw_data.csv">Raw Data</a></small>
+</center>
+<div class="graph-percent-container">
+	<div class="graph-percent-plot" id="graph-percent-plot"></div>
+	<p class="graph-percent-options" id="graph-percent-options"></p>
+</div>
 
 [1]: http://cirandas.net/brauliobo/blog/ruby-compiled-with-clang-is-8-faster-than-with-gcc-4.9-and-44-faster-than-with-gcc-4.7.2
 [2]: https://www.usenix.org/conference/lisa13/technical-sessions/plenary/gregg

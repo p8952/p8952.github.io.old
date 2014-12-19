@@ -29,3 +29,19 @@ p {
 	width: 20%;
 	float: right;
 }
+
+.graph-percent-container {
+	width: 640px;
+	height: 512px;
+}
+
+.graph-percent-plot {
+	width: 80%;
+	height: 100%;
+	float: left;
+}
+
+.graph-percent-options {
+	width: 20%;
+	float: right;
+}

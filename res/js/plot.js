@@ -2,51 +2,51 @@ $(function() {
 	var datasets = {
 		"gcc_4.4_O2": {
 			label: "GCC 4.4 O2",
-			data: [[1, 810]]
+			data: [[1, 793]]
 		},
 		"gcc_4.4_O3": {
 			label: "GCC 4.4 O3",
-			data: [[2, 829]]
+			data: [[2, 809]]
 		},
 		"gcc_4.7_O2": {
 			label: "GCC 4.7 O2",
-			data: [[3, 667]]
+			data: [[3, 663]]
 		},
 		"gcc_4.7_O3": {
 			label: "GCC 4.7 O3",
-			data: [[4, 707]]
+			data: [[4, 697]]
 		},
 		"gcc_4.8_O2": {
 			label: "GCC 4.8 O2",
-			data: [[5, 650]]
+			data: [[5, 633]]
 		},
 		"gcc_4.8_O3": {
 			label: "GCC 4.8 O3",
-			data: [[6, 603]]
+			data: [[6, 597]]
 		},
 		"gcc_4.9_O2": {
 			label: "GCC 4.9 O2",
-			data: [[7, 481]]
+			data: [[7, 472]]
 		},
 		"gcc_4.9_O3": {
 			label: "GCC 4.9 O3",
-			data: [[7, 553]]
+			data: [[7, 541]]
 		},
 		"clang_3.2": {
 			label: "Clang 3.2",
-			data: [[7, 640]]
+			data: [[7, 623]]
 		},
 		"clang_3.3": {
 			label: "Clang 3.3",
-			data: [[7, 623]]
+			data: [[7, 610]]
 		},
 		"clang_3.4": {
 			label: "Clang 3.4",
-			data: [[7, 723]]
+			data: [[7, 708]]
 		},
 		"clang_3,5": {
 			label: "Clang 3.5",
-			data: [[8, 592]]
+			data: [[8, 576]]
 		}
 	};
 

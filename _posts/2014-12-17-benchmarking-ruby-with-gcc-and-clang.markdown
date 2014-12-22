@@ -38,9 +38,9 @@ not used with Clang since it only adds a single additional flag:
 * GCC 4.4 with O3
 * GCC 4.7 with O2 - Ships with Debian 7 (Wheezy) & Ubuntu 12.04 (Precise)
 * GCC 4.7 with O3
-* GCC 4.8 with O2 - Ships with RHEL/CentOS 7
+* GCC 4.8 with O2 - Ships with Ubuntu 14.04 (Trusty) & RHEL/CentOS 7
 * GCC 4.8 with O3
-* GCC 4.9 with O2 - Ships with Debian 8 (Jessie) & Ubuntu 14.04 (Trusty)
+* GCC 4.9 with O2 - Ships with Debian 8 (Jessie)
 * GCC 4.9 with O3
 * Clang 3.2 with O2
 * Clang 3.3 with O2

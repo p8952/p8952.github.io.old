@@ -5,6 +5,10 @@ p {
 	font-family: Helvetica, Arial, sans-serif;
 }
 
+hr {
+	clear: both;
+}
+
 .container {
 	width: 640px;
 }

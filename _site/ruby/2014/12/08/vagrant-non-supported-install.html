@@ -37,17 +37,34 @@
 
 <p>Install dependencies:</p>
 
-<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>gem install bundler -v 1.6.9
+<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>gem install bundler -v <span class="s1">&#39;&lt; 1.7.0&#39;</span>
 <span class="nv">$ </span>bundle install
 </code></pre></div>
 
-<p>Patch Vagrant[1][2]:</p>
+<p>Patch Vagrant[1][2][3]:</p>
 
 <div class="highlight"><pre><code class="bash">diff --git a/bin/vagrant b/bin/vagrant
-index 21630e1..39c6e46 100755
+index 21630e1..5e24279 100755
 --- a/bin/vagrant
 +++ b/bin/vagrant
-@@ -164,11 +164,6 @@ begin
+@@ -66,6 +66,8 @@ end
+
+ <span class="c"># Setup our dependencies by initializing Bundler. If we&#39;re using plugins,</span>
+ <span class="c"># then also initialize the paths to the plugins.</span>
++load_path <span class="o">=</span> <span class="o">[]</span>
++<span class="nv">$LOAD_PATH</span>.each <span class="o">{</span> <span class="p">|</span>path<span class="p">|</span> load_path <span class="s">&lt;&lt; path }</span>
+<span class="s"> require &quot;bundler&quot;</span>
+<span class="s"> begin</span>
+<span class="s">   Bundler.setup(:default, :plugins)</span>
+<span class="s">@@ -94,6 +96,7 @@ rescue Bundler::VersionConflict =&gt; e</span>
+<span class="s">   $stderr.puts e.message</span>
+<span class="s">   exit 1</span>
+<span class="s"> end</span>
+<span class="s">+load_path</span>.each <span class="o">{</span> <span class="p">|</span>path<span class="p">|</span> <span class="nv">$LOAD_PATH</span>.push<span class="o">(</span>path<span class="o">)</span> unless <span class="nv">$LOAD_PATH</span>.include?<span class="o">(</span>path<span class="o">)</span> <span class="o">}</span>
+
+ <span class="c"># Stdout/stderr should not buffer output</span>
+ <span class="nv">$stdout</span>.sync <span class="o">=</span> <span class="nb">true</span>
+@@ -164,11 +167,6 @@ begin
    logger.debug<span class="o">(</span><span class="s2">&quot;Creating Vagrant environment&quot;</span><span class="o">)</span>
    <span class="nv">env</span> <span class="o">=</span> Vagrant::Environment.new<span class="o">(</span>opts<span class="o">)</span>
 
@@ -60,7 +77,7 @@ index 21630e1..39c6e46 100755
      <span class="c"># Execute the CLI interface, and exit with the proper error code</span>
      <span class="nv">exit_status</span> <span class="o">=</span> env.cli<span class="o">(</span>argv<span class="o">)</span>
 diff --git a/lib/vagrant/bundler.rb b/lib/vagrant/bundler.rb
-index 05867da..bc4a216 100644
+index 05867da..54f9fb8 100644
 --- a/lib/vagrant/bundler.rb
 +++ b/lib/vagrant/bundler.rb
 @@ -18,8 +18,7 @@ module Vagrant
@@ -69,7 +86,7 @@ index 05867da..bc4a216 100644
      def initialize
 -      @enabled <span class="o">=</span> <span class="nb">true </span><span class="k">if </span>ENV<span class="o">[</span><span class="s2">&quot;VAGRANT_INSTALLER_ENV&quot;</span><span class="o">]</span> <span class="o">||</span>
 -        ENV<span class="o">[</span><span class="s2">&quot;VAGRANT_FORCE_BUNDLER&quot;</span><span class="o">]</span>
-+      @enabled <span class="o">=</span> <span class="nb">true</span>
++      @enabled  <span class="o">=</span> <span class="nb">true</span>
        @enabled  <span class="o">=</span> !::Bundler::SharedHelpers.in_bundle? <span class="k">if</span> !@enabled
        @monitor  <span class="o">=</span> Monitor.new
 
@@ -104,6 +121,9 @@ plugins, use your own Gemfile. To load plugins, either put the
 plugins in the <span class="sb">`</span>plugins<span class="sb">`</span> group in your Gemfile or manually require
 them in a Vagrantfile.
 </code></pre></div>
+
+<p>[3]: Without this patch Vagrant will give an <a href="https://github.com/mitchellh/vagrant/issues/5172">error when running in a directory
+containing a Gemfile</a>.</p>
 
 <hr>
 <p class="pull-left">Enjoyed reading? <a href="https://twitter.com/intent/tweet?text=Installing Vagrant in non-supported environments&url=https://p8952.info/ruby/2014/12/08/vagrant-non-supported-install.html&via=p8952_">Share on Twitter</a></p>

@@ -14,17 +14,34 @@ $ git checkout tags/v1.6.5
 
 Install dependencies:
 {% highlight bash %}
-$ gem install bundler -v 1.6.9
+$ gem install bundler -v '< 1.7.0'
 $ bundle install
 {% endhighlight %}
 
-Patch Vagrant[1][2]:
+Patch Vagrant[1][2][3]:
 {% highlight bash %}
 diff --git a/bin/vagrant b/bin/vagrant
-index 21630e1..39c6e46 100755
+index 21630e1..5e24279 100755
 --- a/bin/vagrant
 +++ b/bin/vagrant
-@@ -164,11 +164,6 @@ begin
+@@ -66,6 +66,8 @@ end
+
+ # Setup our dependencies by initializing Bundler. If we're using plugins,
+ # then also initialize the paths to the plugins.
++load_path = []
++$LOAD_PATH.each { |path| load_path << path }
+ require "bundler"
+ begin
+   Bundler.setup(:default, :plugins)
+@@ -94,6 +96,7 @@ rescue Bundler::VersionConflict => e
+   $stderr.puts e.message
+   exit 1
+ end
++load_path.each { |path| $LOAD_PATH.push(path) unless $LOAD_PATH.include?(path) }
+
+ # Stdout/stderr should not buffer output
+ $stdout.sync = true
+@@ -164,11 +167,6 @@ begin
    logger.debug("Creating Vagrant environment")
    env = Vagrant::Environment.new(opts)
 
@@ -37,7 +54,7 @@ index 21630e1..39c6e46 100755
      # Execute the CLI interface, and exit with the proper error code
      exit_status = env.cli(argv)
 diff --git a/lib/vagrant/bundler.rb b/lib/vagrant/bundler.rb
-index 05867da..bc4a216 100644
+index 05867da..54f9fb8 100644
 --- a/lib/vagrant/bundler.rb
 +++ b/lib/vagrant/bundler.rb
 @@ -18,8 +18,7 @@ module Vagrant
@@ -46,7 +63,7 @@ index 05867da..bc4a216 100644
      def initialize
 -      @enabled = true if ENV["VAGRANT_INSTALLER_ENV"] ||
 -        ENV["VAGRANT_FORCE_BUNDLER"]
-+      @enabled = true
++      @enabled  = true
        @enabled  = !::Bundler::SharedHelpers.in_bundle? if !@enabled
        @monitor  = Monitor.new
 
@@ -81,3 +98,6 @@ plugins, use your own Gemfile. To load plugins, either put the
 plugins in the `plugins` group in your Gemfile or manually require
 them in a Vagrantfile.
 {% endhighlight %}
+
+[3]: Without this patch Vagrant will give an [error when running in a directory
+containing a Gemfile](https://github.com/mitchellh/vagrant/issues/5172).

@@ -1,5 +1,13 @@
+@font-face {
+	font-family: 'Latin Modern Roman';
+	font-weight: bold;
+	font-style: normal;
+	src: url('/res/fonts/lmroman10-bold.woff') format('woff');
+}
+
 h1, h2, h3, h4, h5, h6 {
-	font-family: Georgia, Times, serif;
+	font-family: 'Latin Modern Roman', serif;
+	font-weight: bold;
 }
 
 p, li {

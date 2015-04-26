@@ -15,7 +15,7 @@ $ git checkout tags/v1.6.5
 Install dependencies:
 {% highlight bash %}
 $ gem install bundler -v '< 1.7.0'
-$ bundle install
+$ bundle _1.6.9_ install
 {% endhighlight %}
 
 Patch Vagrant[1][2][3]:
@@ -72,8 +72,8 @@ index 05867da..54f9fb8 100644
 
 Test and install:
 {% highlight bash %}
-$ rake test:unit
-$ rake install
+$ bundle _1.6.9_ exec rake test:unit
+$ bundle _1.6.9_ exec rake install
 {% endhighlight %}
 
 [1]: Without this patch Vagrant will give the following warning:

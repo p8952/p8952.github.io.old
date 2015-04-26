@@ -38,7 +38,7 @@
 <p>Install dependencies:</p>
 
 <div class="highlight"><pre><code class="bash"><span class="nv">$ </span>gem install bundler -v <span class="s1">&#39;&lt; 1.7.0&#39;</span>
-<span class="nv">$ </span>bundle install
+<span class="nv">$ </span>bundle _1.6.9_ install
 </code></pre></div>
 
 <p>Patch Vagrant[1][2][3]:</p>
@@ -95,8 +95,8 @@ index 05867da..54f9fb8 100644
 
 <p>Test and install:</p>
 
-<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>rake <span class="nb">test</span>:unit
-<span class="nv">$ </span>rake install
+<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>bundle _1.6.9_ <span class="nb">exec </span>rake <span class="nb">test</span>:unit
+<span class="nv">$ </span>bundle _1.6.9_ <span class="nb">exec </span>rake install
 </code></pre></div>
 
 <p>[1]: Without this patch Vagrant will give the following warning:</p>

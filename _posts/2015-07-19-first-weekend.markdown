@@ -7,8 +7,8 @@ categories: photography
 
 <script>
 var images = [
-	'https://s3-eu-west-1.amazonaws.com/p8952-photography/First+Weekend/IMG_0026.jpg',
-	'https://s3-eu-west-1.amazonaws.com/p8952-photography/First+Weekend/IMG_0031.jpg',
-	'https://s3-eu-west-1.amazonaws.com/p8952-photography/First+Weekend/IMG_0089.jpg'
+	'https://s3-eu-west-1.amazonaws.com/p8952-photography/2015-07-18_First_Weekend/IMG_0026.jpg',
+	'https://s3-eu-west-1.amazonaws.com/p8952-photography/2015-07-18_First_Weekend/IMG_0031.jpg',
+	'https://s3-eu-west-1.amazonaws.com/p8952-photography/2015-07-18_First_Weekend/IMG_0089.jpg'
 ]
 </script>

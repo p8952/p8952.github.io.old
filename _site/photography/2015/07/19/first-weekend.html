@@ -70,7 +70,7 @@ var openPhotoSwipe = function(index) {
 
 for (var i = 0; i < images.length; i++) {
 	document.write(
-		"<img src='" + images[i].slice(0, -4) + '_900x600.jpg' + "' onclick='openPhotoSwipe(" + i + ")' width='640' height='420'></br></br>"
+		"<img class='photograph' src='" + images[i].slice(0, -4) + '_900x600.jpg' + "' onclick='openPhotoSwipe(" + i + ")'><br>"
 	);
 }
 </script>

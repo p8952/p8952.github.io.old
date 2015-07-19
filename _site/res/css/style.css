@@ -27,6 +27,14 @@ hr {
 	padding: 5px;
 }
 
+.photograph {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 600px;
+	height: 400px;
+}
+
 .graph-total-container {
 	width: 640px;
 	height: 512px;

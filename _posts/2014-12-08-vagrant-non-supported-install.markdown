@@ -2,7 +2,8 @@
 layout: post
 title:  "Installing Vagrant in non-supported environments"
 date:   2014-12-08 00:00:00
-categories: ruby
+permalink: /ruby/2014/12/08/vagrant-non-supported-install.html
+categories: ruby gentoo
 ---
 
 Get sources:

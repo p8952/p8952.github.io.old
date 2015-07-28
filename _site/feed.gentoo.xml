@@ -6,5 +6,48 @@
 		<link>https://www.p8952.info</link>
 		<atom:link href="https://www.p8952.info/feed.category.xml" rel="self" type="application/rss+xml" />
 		
+			<item>
+				<title>Benchmarking Ruby with GCC (4.4, 4.7, 4.8, 4.9) and Clang (3.2, 3.3, 3.4, 3.5)</title>
+				
+					<description>&lt;script language=&quot;javascript&quot; type=&quot;text/javascript&quot; src=&quot;/res/js/jquery.min.js&quot;&gt;&lt;/script&gt;
+
+&lt;script language=&quot;javascript&quot; type=&quot;text/javascript&quot; src=&quot;/res/js/jquery.flot.min.js&quot;&gt;&lt;/script&gt;
+
+&lt;script language=&quot;javascript&quot; type=&quot;text/javascript&quot; src=&quot;/res/js/jquery.flot.axislabels.js&quot;&gt;&lt;/script&gt;
+
+&lt;script language=&quot;javascript&quot; type=&quot;text/javascript&quot; src=&quot;/res/js/jquery.flot.tickrotor.js&quot;&gt;&lt;/script&gt;
+
+&lt;script language=&quot;javascript&quot; type=&quot;text/javascript&quot; src=&quot;/res/js/jquery.flot.navigate.js&quot;&gt;&lt;/script&gt;
+
+&lt;script language=&quot;javascript&quot; type=&quot;text/javascript&quot; src=&quot;/res/js/graph-total.js&quot;&gt;&lt;/script&gt;
+
+&lt;script language=&quot;javascript&quot; type=&quot;text/javascript&quot; src=&quot;/res/js/graph-percent.js&quot;&gt;&lt;/script&gt;
+</description>
+				
+				<pubDate>Fri, 12 Dec 2014 00:00:00 +0000</pubDate>
+				<link>https://www.p8952.info/ruby/2014/12/12/benchmarking-ruby-with-gcc-and-clang.html</link>
+				<guid isPermaLink="true">https://www.p8952.info/ruby/2014/12/12/benchmarking-ruby-with-gcc-and-clang.html</guid>
+			</item>
+		
+			<item>
+				<title>Installing Vagrant in non-supported environments</title>
+				
+					<description>&lt;p&gt;Get sources:&lt;/p&gt;
+
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git clone git@github.com:mitchellh/vagrant.git
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;vagrant
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git checkout tags/v1.6.5
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+
+&lt;p&gt;[1]: Without this patch Vagrant will give the following warning:
+[2]: Without this patch Vagrant will give the following error:
+[3]: Without this patch Vagrant will give an [error when running in a directory&lt;/p&gt;
+</description>
+				
+				<pubDate>Mon, 08 Dec 2014 00:00:00 +0000</pubDate>
+				<link>https://www.p8952.info/ruby/2014/12/08/vagrant-non-supported-install.html</link>
+				<guid isPermaLink="true">https://www.p8952.info/ruby/2014/12/08/vagrant-non-supported-install.html</guid>
+			</item>
+		
 	</channel>
 </rss>

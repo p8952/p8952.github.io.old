@@ -2,7 +2,8 @@
 layout: post
 title:  "Benchmarking Ruby with GCC (4.4, 4.7, 4.8, 4.9) and Clang (3.2, 3.3, 3.4, 3.5)"
 date:   2014-12-12 00:00:00
-categories: ruby
+permalink: /ruby/2014/12/12/benchmarking-ruby-with-gcc-and-clang.html
+categories: ruby gentoo
 ---
 
 <script language="javascript" type="text/javascript" src="/res/js/jquery.min.js"></script>

@@ -7,14 +7,98 @@
 		<atom:link href="https://www.p8952.info/feed.xml" rel="self" type="application/rss+xml" />
 		
 			<item>
+				<title>Experimenting with Astrophotography</title>
+				
+				
+					<description>&lt;script&gt;
+var images = [
+    [
+        &#39;10s @ 800 ISO&#39;,
+        &#39;https://s3-eu-west-1.amazonaws.com/p8952-photography/2015-09-11_Experimenting_With_Astrophotography/EDITED/IMG_0652.jpg&#39;,
+    ],
+    [
+        &#39;10s @ 1600 ISO&#39;,
+        &#39;https://s3-eu-west-1.amazonaws.com/p8952-photography/2015-09-11_Experimenting_With_Astrophotography/EDITED/IMG_0653.jpg&#39;,
+    ],
+    [
+        &#39;10s @ 3200 ISO&#39;,
+        &#39;https://s3-eu-west-1.amazonaws.com/p8952-photography/2015-09-11_Experimenting_With_Astrophotography/EDITED/IMG_0654.jpg&#39;,
+    ],
+    [
+        &#39;10s @ 6400 ISO&#39;,
+        &#39;https://s3-eu-west-1.amazonaws.com/p8952-photography/2015-09-11_Experimenting_With_Astrophotography/EDITED/IMG_0655.jpg&#39;,
+    ],
+    [
+        &#39;10s @ 12800 ISO&#39;,
+        &#39;https://s3-eu-west-1.amazonaws.com/p8952-photography/2015-09-11_Experimenting_With_Astrophotography/EDITED/IMG_0656.jpg&#39;,
+    ],
+    [
+        &#39;15s @ 800 ISO&#39;,
+        &#39;https://s3-eu-west-1.amazonaws.com/p8952-photography/2015-09-11_Experimenting_With_Astrophotography/EDITED/IMG_0658.jpg&#39;,
+    ],
+    [
+        &#39;15s @ 1600 ISO&#39;,
+        &#39;https://s3-eu-west-1.amazonaws.com/p8952-photography/2015-09-11_Experimenting_With_Astrophotography/EDITED/IMG_0659.jpg&#39;,
+    ],
+    [
+        &#39;15s @ 3200 ISO&#39;,
+        &#39;https://s3-eu-west-1.amazonaws.com/p8952-photography/2015-09-11_Experimenting_With_Astrophotography/EDITED/IMG_0660.jpg&#39;,
+    ],
+    [
+        &#39;15s @ 6400 ISO&#39;,
+        &#39;https://s3-eu-west-1.amazonaws.com/p8952-photography/2015-09-11_Experimenting_With_Astrophotography/EDITED/IMG_0661.jpg&#39;,
+    ],
+    [
+        &#39;15s @ 12800 ISO&#39;,
+        &#39;https://s3-eu-west-1.amazonaws.com/p8952-photography/2015-09-11_Experimenting_With_Astrophotography/EDITED/IMG_0662.jpg&#39;,
+    ],
+    [
+        &#39;20s @ 800 ISO&#39;,
+        &#39;https://s3-eu-west-1.amazonaws.com/p8952-photography/2015-09-11_Experimenting_With_Astrophotography/EDITED/IMG_0663.jpg&#39;,
+    ],
+    [
+        &#39;20s @ 1600 ISO&#39;,
+        &#39;https://s3-eu-west-1.amazonaws.com/p8952-photography/2015-09-11_Experimenting_With_Astrophotography/EDITED/IMG_0664.jpg&#39;,
+    ],
+    [
+        &#39;20s @ 3200 ISO&#39;,
+        &#39;https://s3-eu-west-1.amazonaws.com/p8952-photography/2015-09-11_Experimenting_With_Astrophotography/EDITED/IMG_0665.jpg&#39;,
+    ],
+    [
+        &#39;20s @ 6400 ISO&#39;,
+        &#39;https://s3-eu-west-1.amazonaws.com/p8952-photography/2015-09-11_Experimenting_With_Astrophotography/EDITED/IMG_0666.jpg&#39;,
+    ],
+    [
+        &#39;20s @ 12800 ISO&#39;,
+        &#39;https://s3-eu-west-1.amazonaws.com/p8952-photography/2015-09-11_Experimenting_With_Astrophotography/EDITED/IMG_0667.jpg&#39;,
+    ],
+]
+&lt;/script&gt;
+</description>
+				
+				<pubDate>Thu, 10 Sep 2015 01:00:00 +0100</pubDate>
+				<link>https://www.p8952.info/photography/2015/09/10/experimenting_with_astrophotography.html</link>
+				<guid isPermaLink="true">https://www.p8952.info/photography/2015/09/10/experimenting_with_astrophotography.html</guid>
+			</item>
+		
+			<item>
 				<title>First weekend with Canon EOS 100D</title>
 				
 				
 					<description>&lt;script&gt;
 var images = [
-    &#39;https://s3-eu-west-1.amazonaws.com/p8952-photography/2015-07-18_First_Weekend/EDITED/IMG_0026.jpg&#39;,
-    &#39;https://s3-eu-west-1.amazonaws.com/p8952-photography/2015-07-18_First_Weekend/EDITED/IMG_0031.jpg&#39;,
-    &#39;https://s3-eu-west-1.amazonaws.com/p8952-photography/2015-07-18_First_Weekend/EDITED/IMG_0089.jpg&#39;
+    [
+        &#39;&#39;,
+        &#39;https://s3-eu-west-1.amazonaws.com/p8952-photography/2015-07-18_First_Weekend/EDITED/IMG_0026.jpg&#39;,
+    ],
+    [
+        &#39;&#39;,
+        &#39;https://s3-eu-west-1.amazonaws.com/p8952-photography/2015-07-18_First_Weekend/EDITED/IMG_0031.jpg&#39;,
+    ],
+    [
+        &#39;&#39;,
+        &#39;https://s3-eu-west-1.amazonaws.com/p8952-photography/2015-07-18_First_Weekend/EDITED/IMG_0089.jpg&#39;,
+    ],
 ]
 &lt;/script&gt;
 </description>
@@ -69,10 +153,9 @@ lived instances.&lt;/p&gt;
 				
 					<description>&lt;p&gt;Get sources:&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git clone git@github.com:mitchellh/vagrant.git
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git clone git@github.com:mitchellh/vagrant.git
 &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;vagrant
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git checkout tags/v1.6.5
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git checkout tags/v1.6.5&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;[1]: Without this patch Vagrant will give the following warning:
 [2]: Without this patch Vagrant will give the following error:

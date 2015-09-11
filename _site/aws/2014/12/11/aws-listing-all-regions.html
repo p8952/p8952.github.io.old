@@ -40,20 +40,19 @@ instances from the CLI.</p>
 
 <p>Install dependencies:</p>
 
-<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>gem install aws-sdk pmap
-</code></pre></div>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>gem install aws-sdk pmap</code></pre></div>
 
 <p>/usr/local/bin/aws-list:</p>
 
-<div class="highlight"><pre><code class="ruby"><span class="c1">#!/usr/bin/ruby</span>
+<div class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="c1">#!/usr/bin/ruby</span>
 
 <span class="nb">require</span> <span class="s1">&#39;aws-sdk&#39;</span>
 <span class="nb">require</span> <span class="s1">&#39;pmap&#39;</span>
 
 <span class="k">def</span> <span class="nf">ec2</span><span class="p">(</span><span class="n">region</span> <span class="o">=</span> <span class="s1">&#39;us-east-1&#39;</span><span class="p">)</span>
     <span class="n">ec2</span> <span class="o">=</span> <span class="no">AWS</span><span class="o">::</span><span class="no">EC2</span><span class="o">.</span><span class="n">new</span><span class="p">(</span>
-        <span class="n">access_key_id</span><span class="p">:</span> <span class="no">ENV</span><span class="o">[</span><span class="s1">&#39;AWS_ACCESS_KEY&#39;</span><span class="o">]</span><span class="p">,</span>
-        <span class="n">secret_access_key</span><span class="p">:</span> <span class="no">ENV</span><span class="o">[</span><span class="s1">&#39;AWS_SECRET_KEY&#39;</span><span class="o">]</span><span class="p">,</span>
+        <span class="ss">access_key_id</span><span class="p">:</span> <span class="no">ENV</span><span class="o">[</span><span class="s1">&#39;AWS_ACCESS_KEY&#39;</span><span class="o">]</span><span class="p">,</span>
+        <span class="ss">secret_access_key</span><span class="p">:</span> <span class="no">ENV</span><span class="o">[</span><span class="s1">&#39;AWS_SECRET_KEY&#39;</span><span class="o">]</span><span class="p">,</span>
         <span class="ss">region</span><span class="p">:</span> <span class="n">region</span>
     <span class="p">)</span>
     <span class="n">ec2</span>
@@ -72,12 +71,11 @@ instances from the CLI.</p>
 
 <span class="n">list_instances</span><span class="o">.</span><span class="n">peach</span> <span class="k">do</span> <span class="o">|</span><span class="n">instance</span><span class="o">|</span>
     <span class="nb">puts</span> <span class="s2">&quot;</span><span class="si">#{</span><span class="n">instance</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="se">\t\t</span><span class="si">#{</span><span class="n">instance</span><span class="o">.</span><span class="n">availability_zone</span><span class="si">}</span><span class="se">\t\t</span><span class="si">#{</span><span class="n">instance</span><span class="o">.</span><span class="n">status</span><span class="si">}</span><span class="se">\t\t</span><span class="si">#{</span><span class="n">instance</span><span class="o">.</span><span class="n">ip_address</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span>
-<span class="k">end</span>
-</code></pre></div>
+<span class="k">end</span></code></pre></div>
 
 <p>Listing instances:</p>
 
-<div class="highlight"><pre><code class="bash"><span class="nv">$ </span><span class="nb">export </span><span class="nv">AWS_ACCESS_KEY</span><span class="o">=</span><span class="s2">&quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;</span>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span><span class="nb">export </span><span class="nv">AWS_ACCESS_KEY</span><span class="o">=</span><span class="s2">&quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;</span>
 <span class="nv">$ </span><span class="nb">export </span><span class="nv">AWS_SECRET_KEY</span><span class="o">=</span><span class="s2">&quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890&quot;</span>
 <span class="nv">$ </span>aws-list
 i-16b78754          eu-west-1a          running         54.77.218.113
@@ -99,8 +97,7 @@ i-5b95e54e          sa-east-1a          running         54.94.165.7
 i-2dad38de          ap-northeast-1a     running         54.65.157.129
 i-625a80af          ap-southeast-1a     running         54.169.195.201
 i-a06e006f          ap-southeast-2a     running         54.66.184.34
-i-2dbce5e5          us-west-1a          running         54.67.67.18
-</code></pre></div>
+i-2dbce5e5          us-west-1a          running         54.67.67.18</code></pre></div>
 
 
 

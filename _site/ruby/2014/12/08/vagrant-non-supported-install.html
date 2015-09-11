@@ -31,20 +31,18 @@
 			<h3>Installing Vagrant in non-supported environments</h3>
 <p>Get sources:</p>
 
-<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>git clone git@github.com:mitchellh/vagrant.git
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>git clone git@github.com:mitchellh/vagrant.git
 <span class="nv">$ </span><span class="nb">cd </span>vagrant
-<span class="nv">$ </span>git checkout tags/v1.6.5
-</code></pre></div>
+<span class="nv">$ </span>git checkout tags/v1.6.5</code></pre></div>
 
 <p>Install dependencies:</p>
 
-<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>gem install bundler -v <span class="s1">&#39;&lt; 1.7.0&#39;</span>
-<span class="nv">$ </span>bundle _1.6.9_ install
-</code></pre></div>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>gem install bundler -v <span class="s1">&#39;&lt; 1.7.0&#39;</span>
+<span class="nv">$ </span>bundle _1.6.9_ install</code></pre></div>
 
 <p>Patch Vagrant[1][2][3]:</p>
 
-<div class="highlight"><pre><code class="bash">diff --git a/bin/vagrant b/bin/vagrant
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">diff --git a/bin/vagrant b/bin/vagrant
 index 21630e1..5e24279 100755
 --- a/bin/vagrant
 +++ b/bin/vagrant
@@ -85,43 +83,39 @@ index 05867da..54f9fb8 100644
      end
 
      def initialize
--      @enabled <span class="o">=</span> <span class="nb">true </span><span class="k">if </span>ENV<span class="o">[</span><span class="s2">&quot;VAGRANT_INSTALLER_ENV&quot;</span><span class="o">]</span> <span class="o">||</span>
+-      @enabled <span class="o">=</span> <span class="nb">true </span><span class="k">if</span> ENV<span class="o">[</span><span class="s2">&quot;VAGRANT_INSTALLER_ENV&quot;</span><span class="o">]</span> <span class="o">||</span>
 -        ENV<span class="o">[</span><span class="s2">&quot;VAGRANT_FORCE_BUNDLER&quot;</span><span class="o">]</span>
 +      @enabled  <span class="o">=</span> <span class="nb">true</span>
        @enabled  <span class="o">=</span> !::Bundler::SharedHelpers.in_bundle? <span class="k">if</span> !@enabled
        @monitor  <span class="o">=</span> Monitor.new
 
----
-</code></pre></div>
+---</code></pre></div>
 
 <p>Test and install:</p>
 
-<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>bundle _1.6.9_ <span class="nb">exec </span>rake <span class="nb">test</span>:unit
-<span class="nv">$ </span>bundle _1.6.9_ <span class="nb">exec </span>rake install
-</code></pre></div>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>bundle _1.6.9_ <span class="nb">exec </span>rake <span class="nb">test</span>:unit
+<span class="nv">$ </span>bundle _1.6.9_ <span class="nb">exec </span>rake install</code></pre></div>
 
 <p>[1]: Without this patch Vagrant will give the following warning:</p>
 
-<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>vagrant status
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>vagrant status
 You appear to be running Vagrant outside of the official installers.
 Note that the installers are what ensure that Vagrant has all required
 dependencies, and Vagrant assumes that these dependencies exist. By
 running outside of the installer environment, Vagrant may not <span class="k">function</span>
 properly. To remove this warning, install Vagrant using one of the
-official packages from vagrantup.com.
-</code></pre></div>
+official packages from vagrantup.com.</code></pre></div>
 
 <p>[2]: Without this patch Vagrant will give the following error:</p>
 
-<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>vagrant plugin install vagrant-aws
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>vagrant plugin install vagrant-aws
 Installing the <span class="s1">&#39;vagrant-aws&#39;</span> plugin. This can take a few minutes...
 Vagrant<span class="err">&#39;</span>s built-in bundler management mechanism is disabled because
 Vagrant is running in an external bundler environment. In these
 cases, plugin management does not work with Vagrant. To install
 plugins, use your own Gemfile. To load plugins, either put the
 plugins in the <span class="sb">`</span>plugins<span class="sb">`</span> group in your Gemfile or manually require
-them in a Vagrantfile.
-</code></pre></div>
+them in a Vagrantfile.</code></pre></div>
 
 <p>[3]: Without this patch Vagrant will give an <a href="https://github.com/mitchellh/vagrant/issues/5172">error when running in a directory
 containing a Gemfile</a>.</p>

@@ -34,10 +34,9 @@
 				
 					<description>&lt;p&gt;Get sources:&lt;/p&gt;
 
-&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git clone git@github.com:mitchellh/vagrant.git
+&lt;div class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git clone git@github.com:mitchellh/vagrant.git
 &lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;cd &lt;/span&gt;vagrant
-&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git checkout tags/v1.6.5
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;span class=&quot;nv&quot;&gt;$ &lt;/span&gt;git checkout tags/v1.6.5&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
 
 &lt;p&gt;[1]: Without this patch Vagrant will give the following warning:
 [2]: Without this patch Vagrant will give the following error:

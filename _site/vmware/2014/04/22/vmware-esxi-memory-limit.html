@@ -39,8 +39,7 @@ machines in typical production environments.&quot;</p>
 <p>However when installing ESXi on a system with 4GB of RAM you will receive an
 error along the lines of:</p>
 
-<div class="highlight"><pre><code class="bash">&lt;MEMORY_SIZE ERROR: This host has 3.71 GiB of RAM. 3.97 GiB are needed&gt;
-</code></pre></div>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash">&lt;MEMORY_SIZE ERROR: This host has 3.71 GiB of RAM. 3.97 GiB are needed&gt;</code></pre></div>
 
 <p>You&#39;ll notice that the people writing the System Requirements document are using
 the SI unit of gigabyte (GB) while those writing the ESXi installer are using
@@ -55,28 +54,24 @@ password field blank.</p>
 
 <p>After logging in you need to tweak the permissions on upgrade_precheck.py:</p>
 
-<div class="highlight"><pre><code class="bash"><span class="nv">$ </span><span class="nb">cd</span> /usr/lib/vmware/weasel/util/
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span><span class="nb">cd</span> /usr/lib/vmware/weasel/util/
 <span class="nv">$ </span>rm upgrade_precheck.pyc
 <span class="nv">$ </span>cp upgrade_precheck.py upgrade_precheck.py.tmp
 <span class="nv">$ </span>cp upgrade_precheck.py.tmp upgrade_precheck.py
-<span class="nv">$ </span>chmod 777 upgrade_precheck.py
-</code></pre></div>
+<span class="nv">$ </span>chmod <span class="m">777</span> upgrade_precheck.py</code></pre></div>
 
 <p>Open up upgrade_precheck.py in vi and replace:</p>
 
-<div class="highlight"><pre><code class="python"><span class="n">MEM_MIN_SIZE</span> <span class="o">=</span> <span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="mi">1024</span> <span class="o">-</span> <span class="mi">32</span><span class="p">)</span> <span class="o">*</span> <span class="n">SIZE_MiB</span>
-</code></pre></div>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">MEM_MIN_SIZE</span> <span class="o">=</span> <span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="mi">1024</span> <span class="o">-</span> <span class="mi">32</span><span class="p">)</span> <span class="o">*</span> <span class="n">SIZE_MiB</span></code></pre></div>
 
 <p>With:</p>
 
-<div class="highlight"><pre><code class="python"><span class="n">MEM_MIN_SIZE</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="mi">1024</span> <span class="o">-</span> <span class="mi">32</span><span class="p">)</span> <span class="o">*</span> <span class="n">SIZE_MiB</span>
-</code></pre></div>
+<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">MEM_MIN_SIZE</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="mi">1024</span> <span class="o">-</span> <span class="mi">32</span><span class="p">)</span> <span class="o">*</span> <span class="n">SIZE_MiB</span></code></pre></div>
 
 <p>Then restart the ESXi installer by killing the weasel process.</p>
 
-<div class="highlight"><pre><code class="bash"><span class="nv">$ </span>ps -c <span class="p">|</span> grep weasel
-<span class="nv">$ </span><span class="nb">kill </span>12345
-</code></pre></div>
+<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>ps -c <span class="p">|</span> grep weasel
+<span class="nv">$ </span><span class="nb">kill </span>12345</code></pre></div>
 
 <p>You will automatically get switched away from the virtual terminal and can
 continue the installation.</p>

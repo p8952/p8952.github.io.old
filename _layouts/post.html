@@ -24,7 +24,7 @@ var openPhotoSwipe = function(index) {
 	var items = []
 	for (var i = 0; i < images.length; i++) {
 		item = {
-			src: images[i],
+			src: images[i][1],
 			w: 900,
 			h: 600
 		}
@@ -43,7 +43,10 @@ var openPhotoSwipe = function(index) {
 
 for (var i = 0; i < images.length; i++) {
 	document.write(
-		"<img class='photograph' src='" + images[i].slice(0, -4) + '_900x600.jpg' + "' onclick='openPhotoSwipe(" + i + ")'><br>"
+		"<h4>" + images[i][0] + "</h4>"
+	);
+	document.write(
+		"<img class='photograph' src='" + images[i][1].slice(0, -4) + '_900x600.jpg' + "' onclick='openPhotoSwipe(" + i + ")'><br>"
 	);
 }
 </script>

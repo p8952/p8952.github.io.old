@@ -11,7 +11,7 @@
 				
 				
 					<description>&lt;div align=&quot;center&quot;&gt;
-&lt;video width=&quot;600&quot; autoplay controls loop&gt;
+&lt;video width=&quot;600&quot; controls&gt;
     &lt;source src=&quot;https://s3-eu-west-1.amazonaws.com/p8952-photography/33seconds.webm&quot; type=&quot;video/webm&quot;&gt;
 &lt;/video&gt;
 &lt;/div&gt;

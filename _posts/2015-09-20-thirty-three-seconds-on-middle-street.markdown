@@ -7,6 +7,6 @@ categories: photography
 
 <div align="center">
 <video width="600" controls>
-	<source src="https://s3-eu-west-1.amazonaws.com/p8952-photography/33seconds.webm" type="video/webm">
+	<source src="https://s3-eu-west-1.amazonaws.com/p8952-photography/33seconds.mp4" type="video/mp4">
 </video>
 </div>

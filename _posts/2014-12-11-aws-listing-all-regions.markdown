@@ -15,12 +15,14 @@ currently have running I found it easier to just use the API and list active
 instances from the CLI.
 
 Install dependencies:
-{% highlight bash %}
+
+```
 $ gem install aws-sdk pmap
-{% endhighlight %}
+```
 
 /usr/local/bin/aws-list:
-{% highlight ruby %}
+
+```
 #!/usr/bin/ruby
 
 require 'aws-sdk'
@@ -49,10 +51,11 @@ end
 list_instances.peach do |instance|
 	puts "#{instance.id}\t\t#{instance.availability_zone}\t\t#{instance.status}\t\t#{instance.ip_address}\n"
 end
-{% endhighlight %}
+```
 
 Listing instances:
-{% highlight bash %}
+
+```
 $ export AWS_ACCESS_KEY="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 $ export AWS_SECRET_KEY="ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
 $ aws-list
@@ -76,4 +79,4 @@ i-2dad38de			ap-northeast-1a		running			54.65.157.129
 i-625a80af			ap-southeast-1a		running			54.169.195.201
 i-a06e006f			ap-southeast-2a		running			54.66.184.34
 i-2dbce5e5			us-west-1a			running			54.67.67.18
-{% endhighlight %}
+```

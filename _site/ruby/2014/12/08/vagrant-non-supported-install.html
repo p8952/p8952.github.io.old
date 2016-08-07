@@ -1,80 +1,78 @@
 <!DOCTYPE html>
 <html>
-	<head>
-        <title>Peter Wilmott - Installing Vagrant in non-supported environments</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="icon" type="image/png" href="/res/img/favicon.png"/>
-		<link href="/res/css/bootstrap.min.css" rel="stylesheet">
-		<link href="/res/css/font-awesome.min.css" rel="stylesheet">
-		<link href="/res/css/style.css" rel="stylesheet">
-		<script>
-			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-			ga('create', 'UA-57627294-1', 'auto');
-			ga('send', 'pageview');
-		</script>
-	</head>
-    <body>
-		<div class="container">
-			<h1>
-				<a href="/index.html">Peter Wilmott</a>
-			</h1>
-			<h4>
-				<a href="/index.html">About</a> |
-				<a href="/projects.html">Projects</a> |
-				<a href="/notes.html">Notes</a> |
-				<a href="/photography.html">Photography</a>
-			</h4>
-			<hr>
-			<h3>Installing Vagrant in Non-Supported Environments</h3>
+  <head>
+    <title>p8952 - Installing Vagrant in non-supported environments</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/res/img/favicon.png"/>
+    <link href="/res/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/res/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/res/css/style.css" rel="stylesheet">
+    <script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-57627294-1', 'auto');
+ga('send', 'pageview');
+    </script>
+  </head>
+  <body>
+    <div class="header">
+      <h3>
+        <strong><a href="/index.html">p8952</a></strong>
+        <div class="pull-right">
+        <a href="/projects.html">Code</a>|
+        <a href="/notes.html">Notes</a>|
+        <a href="/photography.html">Photos</a>
+        </div>
+      </h3>
+    </div>
+    <br>
+    <br>
+    <h3>Installing Vagrant in Non-Supported Environments</h3>
 <p>Get sources:</p>
-
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>git clone git@github.com:mitchellh/vagrant.git
-<span class="nv">$ </span><span class="nb">cd </span>vagrant
-<span class="nv">$ </span>git checkout tags/v1.6.5</code></pre></div>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ git clone git@github.com:mitchellh/vagrant.git
+$ cd vagrant
+$ git checkout tags/v1.6.5
+</code></pre></div>
 <p>Install dependencies:</p>
-
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>gem install bundler -v <span class="s1">&#39;&lt; 1.7.0&#39;</span>
-<span class="nv">$ </span>bundle _1.6.9_ install</code></pre></div>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ gem install bundler -v &#39;&lt; 1.7.0&#39;
+$ bundle _1.6.9_ install
+</code></pre></div>
 <p>Patch Vagrant[1][2][3]:</p>
-
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">diff --git a/bin/vagrant b/bin/vagrant
+<div class="highlight"><pre><code class="language-text" data-lang="text">diff --git a/bin/vagrant b/bin/vagrant
 index 21630e1..5e24279 100755
 --- a/bin/vagrant
 +++ b/bin/vagrant
 @@ -66,6 +66,8 @@ end
 
- <span class="c"># Setup our dependencies by initializing Bundler. If we&#39;re using plugins,</span>
- <span class="c"># then also initialize the paths to the plugins.</span>
-+load_path <span class="o">=</span> <span class="o">[]</span>
-+<span class="nv">$LOAD_PATH</span>.each <span class="o">{</span> <span class="p">|</span>path<span class="p">|</span> load_path <span class="s">&lt;&lt; path }</span>
-<span class="s"> require &quot;bundler&quot;</span>
-<span class="s"> begin</span>
-<span class="s">   Bundler.setup(:default, :plugins)</span>
-<span class="s">@@ -94,6 +96,7 @@ rescue Bundler::VersionConflict =&gt; e</span>
-<span class="s">   $stderr.puts e.message</span>
-<span class="s">   exit 1</span>
-<span class="s"> end</span>
-<span class="s">+load_path</span>.each <span class="o">{</span> <span class="p">|</span>path<span class="p">|</span> <span class="nv">$LOAD_PATH</span>.push<span class="o">(</span>path<span class="o">)</span> unless <span class="nv">$LOAD_PATH</span>.include?<span class="o">(</span>path<span class="o">)</span> <span class="o">}</span>
+ # Setup our dependencies by initializing Bundler. If we&#39;re using plugins,
+ # then also initialize the paths to the plugins.
++load_path = []
++$LOAD_PATH.each { |path| load_path &lt;&lt; path }
+ require &quot;bundler&quot;
+ begin
+   Bundler.setup(:default, :plugins)
+@@ -94,6 +96,7 @@ rescue Bundler::VersionConflict =&gt; e
+   $stderr.puts e.message
+   exit 1
+ end
++load_path.each { |path| $LOAD_PATH.push(path) unless $LOAD_PATH.include?(path) }
 
- <span class="c"># Stdout/stderr should not buffer output</span>
- <span class="nv">$stdout</span>.sync <span class="o">=</span> <span class="nb">true</span>
+ # Stdout/stderr should not buffer output
+ $stdout.sync = true
 @@ -164,11 +167,6 @@ begin
-   logger.debug<span class="o">(</span><span class="s2">&quot;Creating Vagrant environment&quot;</span><span class="o">)</span>
-   <span class="nv">env</span> <span class="o">=</span> Vagrant::Environment.new<span class="o">(</span>opts<span class="o">)</span>
+   logger.debug(&quot;Creating Vagrant environment&quot;)
+   env = Vagrant::Environment.new(opts)
 
--  <span class="k">if</span> !Vagrant.in_installer? <span class="o">&amp;&amp;</span> !Vagrant.very_quiet?
--    <span class="c"># If we&#39;re not in the installer, warn.</span>
--    env.ui.warn<span class="o">(</span>I18n.t<span class="o">(</span><span class="s2">&quot;vagrant.general.not_in_installer&quot;</span><span class="o">)</span> + <span class="s2">&quot;\n&quot;</span>, prefix: <span class="nb">false</span><span class="o">)</span>
+-  if !Vagrant.in_installer? &amp;&amp; !Vagrant.very_quiet?
+-    # If we&#39;re not in the installer, warn.
+-    env.ui.warn(I18n.t(&quot;vagrant.general.not_in_installer&quot;) + &quot;\n&quot;, prefix: false)
 -  end
 -
    begin
-     <span class="c"># Execute the CLI interface, and exit with the proper error code</span>
-     <span class="nv">exit_status</span> <span class="o">=</span> env.cli<span class="o">(</span>argv<span class="o">)</span>
+     # Execute the CLI interface, and exit with the proper error code
+     exit_status = env.cli(argv)
 diff --git a/lib/vagrant/bundler.rb b/lib/vagrant/bundler.rb
 index 05867da..54f9fb8 100644
 --- a/lib/vagrant/bundler.rb
@@ -83,54 +81,47 @@ index 05867da..54f9fb8 100644
      end
 
      def initialize
--      @enabled <span class="o">=</span> <span class="nb">true </span><span class="k">if</span> ENV<span class="o">[</span><span class="s2">&quot;VAGRANT_INSTALLER_ENV&quot;</span><span class="o">]</span> <span class="o">||</span>
--        ENV<span class="o">[</span><span class="s2">&quot;VAGRANT_FORCE_BUNDLER&quot;</span><span class="o">]</span>
-+      @enabled  <span class="o">=</span> <span class="nb">true</span>
-       @enabled  <span class="o">=</span> !::Bundler::SharedHelpers.in_bundle? <span class="k">if</span> !@enabled
-       @monitor  <span class="o">=</span> Monitor.new
+-      @enabled = true if ENV[&quot;VAGRANT_INSTALLER_ENV&quot;] ||
+-        ENV[&quot;VAGRANT_FORCE_BUNDLER&quot;]
++      @enabled  = true
+       @enabled  = !::Bundler::SharedHelpers.in_bundle? if !@enabled
+       @monitor  = Monitor.new
 
----</code></pre></div>
-
+---
+</code></pre></div>
 <p>Test and install:</p>
-
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>bundle _1.6.9_ <span class="nb">exec </span>rake <span class="nb">test</span>:unit
-<span class="nv">$ </span>bundle _1.6.9_ <span class="nb">exec </span>rake install</code></pre></div>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ bundle _1.6.9_ exec rake test:unit
+$ bundle _1.6.9_ exec rake install
+</code></pre></div>
 <p>[1]: Without this patch Vagrant will give the following warning:</p>
-
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>vagrant status
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ vagrant status
 You appear to be running Vagrant outside of the official installers.
 Note that the installers are what ensure that Vagrant has all required
 dependencies, and Vagrant assumes that these dependencies exist. By
-running outside of the installer environment, Vagrant may not <span class="k">function</span>
+running outside of the installer environment, Vagrant may not function
 properly. To remove this warning, install Vagrant using one of the
-official packages from vagrantup.com.</code></pre></div>
-
+official packages from vagrantup.com.
+</code></pre></div>
 <p>[2]: Without this patch Vagrant will give the following error:</p>
-
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>vagrant plugin install vagrant-aws
-Installing the <span class="s1">&#39;vagrant-aws&#39;</span> plugin. This can take a few minutes...
-Vagrant<span class="err">&#39;</span>s built-in bundler management mechanism is disabled because
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ vagrant plugin install vagrant-aws
+Installing the &#39;vagrant-aws&#39; plugin. This can take a few minutes...
+Vagrant&#39;s built-in bundler management mechanism is disabled because
 Vagrant is running in an external bundler environment. In these
 cases, plugin management does not work with Vagrant. To install
 plugins, use your own Gemfile. To load plugins, either put the
-plugins in the <span class="sb">`</span>plugins<span class="sb">`</span> group in your Gemfile or manually require
-them in a Vagrantfile.</code></pre></div>
-
+plugins in the `plugins` group in your Gemfile or manually require
+them in a Vagrantfile.
+</code></pre></div>
 <p>[3]: Without this patch Vagrant will give an <a href="https://github.com/mitchellh/vagrant/issues/5172">error when running in a directory
 containing a Gemfile</a>.</p>
 
 
 
-<small class="pull-right">December 08, 2014</small>
 <hr>
-<p class="pull-left">Enjoyed reading? <a href="https://twitter.com/intent/tweet?text=Installing Vagrant in non-supported environments&url=https://p8952.info/ruby/2014/12/08/vagrant-non-supported-install.html&via=p8952_">Share on Twitter</a></p>
-<p class="pull-right">Comments? Tweet me <a href="https://twitter.com/p8952_">@p8952_</a></p>
-<br><br>
+<small>December 08, 2014</small>
 
 
 
 
-		</div>
-    </body>
+  </body>
 </html>

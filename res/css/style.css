@@ -1,68 +1,69 @@
-@font-face {
-	font-family: 'Latin Modern Roman';
-	font-weight: bold;
-	font-style: normal;
-	src: url('/res/fonts/lmroman10-bold.woff') format('woff');
+body {
+  background-image: url("/res/img/background.png");
+  background-repeat: repeat;
+  color: #555;
+  color: #566b78;
+  font-family: "Helvetica", "Arial", sans-serif;
+  line-height: 1.5;
+  margin: 0 auto;
+  max-width: 50em;
+  overflow-y: scroll;
+  padding: 4em 1em;
 }
 
-h1, h2, h3, h4, h5, h6 {
-	font-family: 'Latin Modern Roman', serif;
-	font-weight: bold;
+h1, h2, h3 {
+  color: #333;
 }
 
-p, li {
-	font-family: Verdana, Arial, sans-serif;
+a {
+  color: #e81c4f;
 }
 
-hr {
-	clear: both;
+code, pre {
+  background: #f5f7f9;
+  color: #a7adba;
 }
 
-.container {
-	width: 640px;
-}
-
-.portrait {
-	float: right;
-	padding: 5px;
+pre {
+  border-left: 2px solid #69c;
 }
 
 .photograph {
-	display: block;
-	margin-left: auto;
-	margin-right: auto;
-	width: 600px;
-	height: 400px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 600px;
+  height: 400px;
 }
 
 .graph-total-container {
-	width: 640px;
-	height: 512px;
+  width: 640px;
+  height: 512px;
 }
 
 .graph-total-plot {
-	width: 80%;
-	height: 100%;
-	float: left;
+  width: 80%;
+  height: 100%;
+  float: left;
 }
 
 .graph-total-options {
-	width: 20%;
-	float: right;
+  width: 20%;
+  float: right;
 }
 
 .graph-percent-container {
-	width: 640px;
-	height: 512px;
+  width: 640px;
+  height: 512px;
 }
 
 .graph-percent-plot {
-	width: 80%;
-	height: 100%;
-	float: left;
+  width: 80%;
+  height: 100%;
+  float: left;
 }
 
 .graph-percent-options {
-	width: 20%;
-	float: right;
+  width: 20%;
+  float: right;
 }

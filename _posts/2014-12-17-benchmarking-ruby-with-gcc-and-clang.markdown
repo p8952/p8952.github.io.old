@@ -27,7 +27,7 @@ control over such things. Does the cost-benefit analysis still work out the same
 when you take into account a 10/20/30% performance hit?
 
 All tests were run on AWS from an m3.medium EC2 instance and the AMI used was
-a modified copy of one of my weekly generated [Gentoo Linux AMIs][3]. The
+a modified copy of one of my [Gentoo Linux AMIs][3]. The
 version of Ruby was 2.1 while the tests themselves are from [Antonio Cangiano's
 Ruby Benchmark Suite][4]. The tooling used to run them is [available on my
 GitHub][5] if you want to try this out for yourself.
@@ -111,6 +111,6 @@ varients at once, you can also pan and zoom.
 
 [1]: http://cirandas.net/brauliobo/blog/ruby-compiled-with-clang-is-8-faster-than-with-gcc-4.9-and-44-faster-than-with-gcc-4.7.2
 [2]: https://www.usenix.org/conference/lisa13/technical-sessions/plenary/gregg
-[3]: https://p8952.info/projects.html
+[3]: https://github.com/p8952/genstall
 [4]: https://github.com/acangiano/ruby-benchmark-suite
 [5]: https://github.com/p8952/ruby-compiler-benchmark

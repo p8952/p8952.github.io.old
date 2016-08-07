@@ -1,34 +1,35 @@
 <!DOCTYPE html>
 <html>
-	<head>
-        <title>Peter Wilmott - VMware ESXi MEMORY_SIZE_ERROR</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<link rel="icon" type="image/png" href="/res/img/favicon.png"/>
-		<link href="/res/css/bootstrap.min.css" rel="stylesheet">
-		<link href="/res/css/font-awesome.min.css" rel="stylesheet">
-		<link href="/res/css/style.css" rel="stylesheet">
-		<script>
-			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-			ga('create', 'UA-57627294-1', 'auto');
-			ga('send', 'pageview');
-		</script>
-	</head>
-    <body>
-		<div class="container">
-			<h1>
-				<a href="/index.html">Peter Wilmott</a>
-			</h1>
-			<h4>
-				<a href="/index.html">About</a> |
-				<a href="/projects.html">Projects</a> |
-				<a href="/notes.html">Notes</a> |
-				<a href="/photography.html">Photography</a>
-			</h4>
-			<hr>
-			<h3>VMware ESXi MEMORY_SIZE_ERROR</h3>
+  <head>
+    <title>p8952 - VMware ESXi MEMORY_SIZE_ERROR</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/res/img/favicon.png"/>
+    <link href="/res/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/res/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/res/css/style.css" rel="stylesheet">
+    <script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-57627294-1', 'auto');
+ga('send', 'pageview');
+    </script>
+  </head>
+  <body>
+    <div class="header">
+      <h3>
+        <strong><a href="/index.html">p8952</a></strong>
+        <div class="pull-right">
+        <a href="/projects.html">Code</a>|
+        <a href="/notes.html">Notes</a>|
+        <a href="/photography.html">Photos</a>
+        </div>
+      </h3>
+    </div>
+    <br>
+    <br>
+    <h3>VMware ESXi MEMORY_SIZE_ERROR</h3>
 <p>VMware&#39;s ESXi 5.5 increases the recommend memory requirement from 4GB to 8GB,
 their own System Requirements document stating that:</p>
 
@@ -38,9 +39,8 @@ machines in typical production environments.&quot;</p>
 
 <p>However when installing ESXi on a system with 4GB of RAM you will receive an
 error along the lines of:</p>
-
-<div class="highlight"><pre><code class="language-bash" data-lang="bash">&lt;MEMORY_SIZE ERROR: This host has 3.71 GiB of RAM. 3.97 GiB are needed&gt;</code></pre></div>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text">&lt;MEMORY_SIZE ERROR: This host has 3.71 GiB of RAM. 3.97 GiB are needed&gt;
+</code></pre></div>
 <p>You&#39;ll notice that the people writing the System Requirements document are using
 the SI unit of gigabyte (GB) while those writing the ESXi installer are using
 the binary unit of gibibyte (GiB). As such ESXi does not require 4,000,000,000
@@ -53,40 +53,32 @@ installer checks for and it will install without issue.</p>
 password field blank.</p>
 
 <p>After logging in you need to tweak the permissions on upgrade_precheck.py:</p>
-
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span><span class="nb">cd</span> /usr/lib/vmware/weasel/util/
-<span class="nv">$ </span>rm upgrade_precheck.pyc
-<span class="nv">$ </span>cp upgrade_precheck.py upgrade_precheck.py.tmp
-<span class="nv">$ </span>cp upgrade_precheck.py.tmp upgrade_precheck.py
-<span class="nv">$ </span>chmod <span class="m">777</span> upgrade_precheck.py</code></pre></div>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ cd /usr/lib/vmware/weasel/util/
+$ rm upgrade_precheck.pyc
+$ cp upgrade_precheck.py upgrade_precheck.py.tmp
+$ cp upgrade_precheck.py.tmp upgrade_precheck.py
+$ chmod 777 upgrade_precheck.py
+</code></pre></div>
 <p>Open up upgrade_precheck.py in vi and replace:</p>
-
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">MEM_MIN_SIZE</span> <span class="o">=</span> <span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="mi">1024</span> <span class="o">-</span> <span class="mi">32</span><span class="p">)</span> <span class="o">*</span> <span class="n">SIZE_MiB</span></code></pre></div>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text">MEM_MIN_SIZE = (4 * 1024 - 32) * SIZE_MiB
+</code></pre></div>
 <p>With:</p>
-
-<div class="highlight"><pre><code class="language-python" data-lang="python"><span class="n">MEM_MIN_SIZE</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="mi">1024</span> <span class="o">-</span> <span class="mi">32</span><span class="p">)</span> <span class="o">*</span> <span class="n">SIZE_MiB</span></code></pre></div>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text">MEM_MIN_SIZE = (2 * 1024 - 32) * SIZE_MiB
+</code></pre></div>
 <p>Then restart the ESXi installer by killing the weasel process.</p>
-
-<div class="highlight"><pre><code class="language-bash" data-lang="bash"><span class="nv">$ </span>ps -c <span class="p">|</span> grep weasel
-<span class="nv">$ </span><span class="nb">kill </span>12345</code></pre></div>
-
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ ps -c | grep weasel
+$ kill 12345
+</code></pre></div>
 <p>You will automatically get switched away from the virtual terminal and can
 continue the installation.</p>
 
 
 
-<small class="pull-right">April 22, 2014</small>
 <hr>
-<p class="pull-left">Enjoyed reading? <a href="https://twitter.com/intent/tweet?text=VMware ESXi MEMORY_SIZE_ERROR&url=https://p8952.info/vmware/2014/04/22/vmware-esxi-memory-limit.html&via=p8952_">Share on Twitter</a></p>
-<p class="pull-right">Comments? Tweet me <a href="https://twitter.com/p8952_">@p8952_</a></p>
-<br><br>
+<small>April 22, 2014</small>
 
 
 
 
-		</div>
-    </body>
+  </body>
 </html>

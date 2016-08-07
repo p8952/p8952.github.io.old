@@ -72,6 +72,3 @@ PLATFORMS
 DEPENDENCIES
   jekyll (= 2.5.3)
   jekyll-titleize (= 0.1.0)
-
-BUNDLED WITH
-   1.10.6

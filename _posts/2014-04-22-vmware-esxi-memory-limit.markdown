@@ -15,9 +15,9 @@ machines in typical production environments."
 However when installing ESXi on a system with 4GB of RAM you will receive an
 error along the lines of:
 
-{% highlight bash %}
+```
 <MEMORY_SIZE ERROR: This host has 3.71 GiB of RAM. 3.97 GiB are needed>
-{% endhighlight %}
+```
 
 You'll notice that the people writing the System Requirements document are using
 the SI unit of gigabyte (GB) while those writing the ESXi installer are using
@@ -32,32 +32,32 @@ password field blank.
 
 After logging in you need to tweak the permissions on upgrade_precheck.py:
 
-{% highlight bash %}
+```
 $ cd /usr/lib/vmware/weasel/util/
 $ rm upgrade_precheck.pyc
 $ cp upgrade_precheck.py upgrade_precheck.py.tmp
 $ cp upgrade_precheck.py.tmp upgrade_precheck.py
 $ chmod 777 upgrade_precheck.py
-{% endhighlight %}
+```
 
 Open up upgrade_precheck.py in vi and replace:
 
-{% highlight python %}
+```
 MEM_MIN_SIZE = (4 * 1024 - 32) * SIZE_MiB
-{% endhighlight %}
+```
 
 With:
 
-{% highlight python %}
+```
 MEM_MIN_SIZE = (2 * 1024 - 32) * SIZE_MiB
-{% endhighlight %}
+```
 
 Then restart the ESXi installer by killing the weasel process.
 
-{% highlight bash %}
+```
 $ ps -c | grep weasel
 $ kill 12345
-{% endhighlight %}
+```
 
 You will automatically get switched away from the virtual terminal and can
 continue the installation.

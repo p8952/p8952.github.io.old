@@ -7,20 +7,23 @@ categories: ruby gentoo
 ---
 
 Get sources:
-{% highlight bash %}
+
+```
 $ git clone git@github.com:mitchellh/vagrant.git
 $ cd vagrant
 $ git checkout tags/v1.6.5
-{% endhighlight %}
+```
 
 Install dependencies:
-{% highlight bash %}
+
+```
 $ gem install bundler -v '< 1.7.0'
 $ bundle _1.6.9_ install
-{% endhighlight %}
+```
 
 Patch Vagrant[1][2][3]:
-{% highlight bash %}
+
+```
 diff --git a/bin/vagrant b/bin/vagrant
 index 21630e1..5e24279 100755
 --- a/bin/vagrant
@@ -69,16 +72,18 @@ index 05867da..54f9fb8 100644
        @monitor  = Monitor.new
 
 ---
-{% endhighlight %}
+```
 
 Test and install:
-{% highlight bash %}
+
+```
 $ bundle _1.6.9_ exec rake test:unit
 $ bundle _1.6.9_ exec rake install
-{% endhighlight %}
+```
 
 [1]: Without this patch Vagrant will give the following warning:
-{% highlight bash %}
+
+```
 $ vagrant status
 You appear to be running Vagrant outside of the official installers.
 Note that the installers are what ensure that Vagrant has all required
@@ -86,10 +91,11 @@ dependencies, and Vagrant assumes that these dependencies exist. By
 running outside of the installer environment, Vagrant may not function
 properly. To remove this warning, install Vagrant using one of the
 official packages from vagrantup.com.
-{% endhighlight %}
+```
 
 [2]: Without this patch Vagrant will give the following error:
-{% highlight bash %}
+
+```
 $ vagrant plugin install vagrant-aws
 Installing the 'vagrant-aws' plugin. This can take a few minutes...
 Vagrant's built-in bundler management mechanism is disabled because
@@ -98,7 +104,7 @@ cases, plugin management does not work with Vagrant. To install
 plugins, use your own Gemfile. To load plugins, either put the
 plugins in the `plugins` group in your Gemfile or manually require
 them in a Vagrantfile.
-{% endhighlight %}
+```
 
 [3]: Without this patch Vagrant will give an [error when running in a directory
 containing a Gemfile](https://github.com/mitchellh/vagrant/issues/5172).

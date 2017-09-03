@@ -1,4 +1,3 @@
-name: Peter Wilmott
-url: https://www.p8952.info
-markdown: redcarpet
-gems: ['jekyll-titleize']
+url: "https://p8952.info"
+markdown: kramdown
+plugins: ['jekyll-titleize']

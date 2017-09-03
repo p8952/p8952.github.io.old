@@ -1,51 +1,86 @@
 <!DOCTYPE html>
-<html>
-  <head>
+<html lang="en">
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>p8952 - Benchmarking Ruby with GCC (4.4, 4.7, 4.8, 4.9) and Clang (3.2, 3.3, 3.4, 3.5)</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="/res/img/favicon.png"/>
-    <link href="/res/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/res/css/font-awesome.min.css" rel="stylesheet">
-    <link href="/res/css/style.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="/statics/images/favicon.png" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/statics/css/styles.css">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-ga('create', 'UA-57627294-1', 'auto');
-ga('send', 'pageview');
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+        ga('create', 'UA-57627294-1', 'auto');
+        ga('send', 'pageview');
     </script>
-  </head>
-  <body>
-    <div class="header">
-      <h3>
-        <strong><a href="/index.html">p8952</a></strong>
-        <div class="pull-right">
-          <a href="/projects.html">Code</a>|<a href="/notes.html">Notes</a>|<a href="/photography.html">Photos</a>
-        </div>
-      </h3>
-    </div>
-    <br>
-    <br>
-    <h3>Benchmarking Ruby With GCC (4.4, 4.7, 4.8, 4.9) and Clang (3.2, 3.3, 3.4, 3.5)</h3>
-<script language="javascript" type="text/javascript" src="/res/js/jquery.min.js"></script>
+</head>
 
-<script language="javascript" type="text/javascript" src="/res/js/jquery.flot.min.js"></script>
+<body>
+    <div class="container">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">
+                        p8952
+                    </a>
+                </div>
+                <div class="collapse navbar-collapse" id="navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li  <li class="nav-item" >
+                            <a class="nav-link" href="/code"><i class="fa fa-code"></i> Code</a>
+                        </li>
+                        <li  <li class="nav-item" >
+                            <a class="nav-link" href="/posts"><i class="fa fa-comment-o"></i> Posts</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://github.com/p8952" target="_blank"><i class="fa fa-github"></i> GitHub</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://uk.linkedin.com/in/peterwilmott" target="_blank"><i class="fa fa-linkedin"></i> LinkedIn</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="container">
+            <h3>Benchmarking Ruby With GCC (4.4, 4.7, 4.8, 4.9) and Clang (3.2, 3.3, 3.4, 3.5)</h3>
+<h3><small>December 12, 2014</small></h3>
+<script language="javascript" type="text/javascript" src="/statics/js/jquery.flot.min.js"></script>
 
-<script language="javascript" type="text/javascript" src="/res/js/jquery.flot.axislabels.js"></script>
+<script language="javascript" type="text/javascript" src="/statics/js/jquery.flot.axislabels.js"></script>
 
-<script language="javascript" type="text/javascript" src="/res/js/jquery.flot.tickrotor.js"></script>
+<script language="javascript" type="text/javascript" src="/statics/js/jquery.flot.tickrotor.js"></script>
 
-<script language="javascript" type="text/javascript" src="/res/js/jquery.flot.navigate.js"></script>
+<script language="javascript" type="text/javascript" src="/statics/js/jquery.flot.navigate.js"></script>
 
-<script language="javascript" type="text/javascript" src="/res/js/graph-total.js"></script>
+<script language="javascript" type="text/javascript" src="/statics/js/graph-total.js"></script>
 
-<script language="javascript" type="text/javascript" src="/res/js/graph-percent.js"></script>
+<script language="javascript" type="text/javascript" src="/statics/js/graph-percent.js"></script>
 
-<p>This note is partially inspired by <a href="http://cirandas.net/brauliobo/blog/ruby-compiled-with-clang-is-8-faster-than-with-gcc-4.9-and-44-faster-than-with-gcc-4.7.2">Braulio Bhavamitra&#39;s comments about Ruby
-being faster when compiled with Clang rather than GCC</a> and partially by
-<a href="https://www.usenix.org/conference/lisa13/technical-sessions/plenary/gregg">Brendan Gregg&#39;s comments about compiler optimization during his Flame Graphs
-talk at USENIX LISA13</a> (0:33:30).</p>
+<p>This post is partially inspired by [Braulio Bhavamitra’s comments about Ruby
+being faster when compiled with Clang rather than GCC]<sup id="fnref:1"><a href="#fn:1" class="footnote">1</a></sup> and partially by
+[Brendan Gregg’s comments about compiler optimization during his Flame Graphs
+talk at USENIX LISA13]<sup id="fnref:2"><a href="#fn:2" class="footnote">2</a></sup> (0:33:30).</p>
 
 <p>In short I wanted to look at what kind of performance we are leaving on the
 table by not taking advantage of 1) The newest compiler versions &amp; 2) The
@@ -55,65 +90,75 @@ control over such things. Does the cost-benefit analysis still work out the same
 when you take into account a 10/20/30% performance hit?</p>
 
 <p>All tests were run on AWS from an m3.medium EC2 instance and the AMI used was
-a modified copy of one of my <a href="https://github.com/p8952/genstall">Gentoo Linux AMIs</a>. The
-version of Ruby was 2.1 while the tests themselves are from <a href="https://github.com/acangiano/ruby-benchmark-suite">Antonio Cangiano&#39;s
-Ruby Benchmark Suite</a>. The tooling used to run them is <a href="https://github.com/p8952/ruby-compiler-benchmark">available on my
-GitHub</a> if you want to try this out for yourself.</p>
+a modified copy of one of my weekly generated [Gentoo Linux AMIs]<sup id="fnref:3"><a href="#fn:3" class="footnote">3</a></sup>. The
+version of Ruby was 2.1 while the tests themselves are from [Antonio Cangiano’s
+Ruby Benchmark Suite]<sup id="fnref:4"><a href="#fn:4" class="footnote">4</a></sup>. The tooling used to run them is [available on my
+GitHub]<sup id="fnref:5"><a href="#fn:5" class="footnote">5</a></sup> if you want to try this out for yourself.</p>
 
 <p>The full test suite was run for each of the following compiler variants, O3 was
 not used with Clang since it only adds a single additional flag:</p>
 
 <ul>
-<li>GCC 4.4 with O2 - Ships with Ubuntu 10.04 (Lucid) &amp; RHEL/CentOS 6</li>
-<li>GCC 4.4 with O3</li>
-<li>GCC 4.7 with O2 - Ships with Debian 7 (Wheezy) &amp; Ubuntu 12.04 (Precise)</li>
-<li>GCC 4.7 with O3</li>
-<li>GCC 4.8 with O2 - Ships with Ubuntu 14.04 (Trusty) &amp; RHEL/CentOS 7</li>
-<li>GCC 4.8 with O3</li>
-<li>GCC 4.9 with O2 - Ships with Debian 8 (Jessie)</li>
-<li>GCC 4.9 with O3</li>
-<li>Clang 3.2 with O2</li>
-<li>Clang 3.3 with O2</li>
-<li>Clang 3.4 with O2</li>
-<li>Clang 3.5 with O2</li>
+  <li>GCC 4.4 with O2 - Ships with Ubuntu 10.04 (Lucid) &amp; RHEL/CentOS 6</li>
+  <li>GCC 4.4 with O3</li>
+  <li>GCC 4.7 with O2 - Ships with Debian 7 (Wheezy) &amp; Ubuntu 12.04 (Precise)</li>
+  <li>GCC 4.7 with O3</li>
+  <li>GCC 4.8 with O2 - Ships with Ubuntu 14.04 (Trusty) &amp; RHEL/CentOS 7</li>
+  <li>GCC 4.8 with O3</li>
+  <li>GCC 4.9 with O2 - Ships with Debian 8 (Jessie)</li>
+  <li>GCC 4.9 with O3</li>
+  <li>Clang 3.2 with O2</li>
+  <li>Clang 3.3 with O2</li>
+  <li>Clang 3.4 with O2</li>
+  <li>Clang 3.5 with O2</li>
 </ul>
 
-<p>Each variant was then given a number of points per test based on it&#39;s ranking,
+<p>Each variant was then given a number of points per test based on it’s ranking,
 0 points to the variant which performed the best, 1 to the second best, and so
 on until 11 points were given to the variant which performed the worst.</p>
 
 <p>These scores were then added up per variant and plotted onto a bar graph to try
 and visualize performance per variant.</p>
 
-<p><center>
-    <h4>Performance per variant (Lower is better)</h4>
-    <small class="pull-right"><a href="/res/misc/raw_data.csv">Raw Data</a></small>
+<center>
+	<h4>Performance per variant (Lower is better)</h4>
+	<small class="pull-right"><a href="/statics/misc/raw_data.csv">Raw Data</a></small>
 </center>
 <div class="graph-total-container">
-    <div class="graph-total-plot" id="graph-total-plot"></div>
-    <p class="graph-total-options" id="graph-total-options"></p>
-</div></p>
+	<div class="graph-total-plot" id="graph-total-plot"></div>
+	<p class="graph-total-options" id="graph-total-options"></p>
+</div>
 
 <p>A few interesting things jumped out to me from this data:</p>
 
 <ol>
-<li><p>Your choice of compiler does have a non-negligible affect on the performance
-of your runtime environment.</p></li>
-<li><p>Modern versions of GCC (4.7 &amp; 4.8) and Clang (3.2 &amp; 3.3) have very similar
-performance.</p></li>
-<li><p>Clang 3.4 seems to suffer from some performance regressions in this context.</p></li>
-<li><p>The latest version of GCC (4.9) is ahead by a clear margin.</p></li>
-<li><p>All O3 variants expect GCC 4.8 performed worse than their O2 counterparts.
+  <li>
+    <p>Your choice of compiler does have a non-negligible affect on the performance
+of your runtime environment.</p>
+  </li>
+  <li>
+    <p>Modern versions of GCC (4.7 &amp; 4.8) and Clang (3.2 &amp; 3.3) have very similar
+performance.</p>
+  </li>
+  <li>
+    <p>Clang 3.4 seems to suffer from some performance regressions in this context.</p>
+  </li>
+  <li>
+    <p>The latest version of GCC (4.9) is ahead by a clear margin.</p>
+  </li>
+  <li>
+    <p>All O3 variants expect GCC 4.8 performed worse than their O2 counterparts.
 This is not that unusual and very often using O3 will degrade performance or
 even break an application all together. However the default Makefile shipped
-with Ruby 1.9.3 and above uses O3, which appears to hurt performance.</p></li>
+with Ruby 1.9.3 and above uses O3, which appears to hurt performance.</p>
+  </li>
 </ol>
 
 <p>Of course the standard disclaimers apply. Benchmarking correctly is hard, you
 may not see the same results in your specific environment, do not immediately
 recompile everything in prod using GCC 4.9, ect.</p>
 
-<h4>Update:</h4>
+<h4 id="update">Update:</h4>
 
 <p>Lots of people asked to see the raw data plotted as well as the relative
 performance, so here it is. For each test the average score for all varients was
@@ -128,19 +173,42 @@ O2 was 5% faster than Clang 3.5 in that test.</p>
 <p>Since this makes the graph very cluttered it is best that you only select a few
 varients at once, you can also pan and zoom.</p>
 
-<p><center>
-    <h4>Percentage faster/slower than baseline (Lower is better)</h4>
-    <small class="pull-right"><a href="/res/misc/raw_data.csv">Raw Data</a></small>
+<center>
+	<h4>Percentage faster/slower than baseline (Lower is better)</h4>
+	<small class="pull-right"><a href="/statics/misc/raw_data.csv">Raw Data</a></small>
 </center>
 <div class="graph-percent-container">
-    <div class="graph-percent-plot" id="graph-percent-plot"></div>
-    <p class="graph-percent-options" id="graph-percent-options"></p>
-</div></p>
+	<div class="graph-percent-plot" id="graph-percent-plot"></div>
+	<p class="graph-percent-options" id="graph-percent-options"></p>
+</div>
 
+<div class="footnotes">
+  <ol>
+    <li id="fn:1">
+      <p>http://cirandas.net/brauliobo/blog/ruby-compiled-with-clang-is-8-faster-than-with-gcc-4.9-and-44-faster-than-with-gcc-4.7.2&nbsp;<a href="#fnref:1" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:2">
+      <p>https://www.usenix.org/conference/lisa13/technical-sessions/plenary/gregg&nbsp;<a href="#fnref:2" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:3">
+      <p>https://p8952.info/projects.html&nbsp;<a href="#fnref:3" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:4">
+      <p>https://github.com/acangiano/ruby-benchmark-suite&nbsp;<a href="#fnref:4" class="reversefootnote">&#8617;</a></p>
+    </li>
+    <li id="fn:5">
+      <p>https://github.com/p8952/ruby-compiler-benchmark&nbsp;<a href="#fnref:5" class="reversefootnote">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
 
+<hr>
+<p class="pull-left">Share on <a href="https://twitter.com/intent/tweet?text=Benchmarking Ruby with GCC (4.4, 4.7, 4.8, 4.9) and Clang (3.2, 3.3, 3.4, 3.5)&url=https://p8952.info/ruby/2014/12/12/benchmarking-ruby-with-gcc-and-clang.html&via=p8952_">Twitter</a></p>
+<p class="pull-right">Comments <a href="https://twitter.com/p8952_">@p8952_</a></p>
+<br>
+<br>
+        </div>
+    </div>
+</body>
 
-
-<small>December 12, 2014</small>
-
-  </body>
 </html>

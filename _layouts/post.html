@@ -1,21 +1,12 @@
 ---
-layout: default
+layout: page
 ---
 
 <h3>{{ page.title | titleize }}</h3>
+<h3><small>{{ page.date | date: '%B %d, %Y' }}</small></h3>
 {{ content }}
-
-{% if page.categories contains 'photography' %}
-<script>
-for (var i = 0; i < images.length; i++) {
-  document.write(
-      "<h4>" + images[i][0] + "</h4>"
-      );
-  document.write(
-      "<img class='photograph' src='" + images[i][1].slice(0, -4) + '_900x600.jpg' + "'><br>"
-      );
-}
-</script>
-{% endif %}
-
-<small>{{ page.date | date: '%B %d, %Y' }}</small>
+<hr>
+<p class="pull-left">Share on <a href="https://twitter.com/intent/tweet?text={{ page.title }}&url=https://p8952.info{{ page.url }}&via=p8952_">Twitter</a></p>
+<p class="pull-right">Comments <a href="https://twitter.com/p8952_">@p8952_</a></p>
+<br>
+<br>

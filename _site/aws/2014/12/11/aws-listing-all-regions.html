@@ -1,34 +1,71 @@
 <!DOCTYPE html>
-<html>
-  <head>
+<html lang="en">
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>p8952 - Listing EC2 instances in all regions</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="/res/img/favicon.png"/>
-    <link href="/res/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/res/css/font-awesome.min.css" rel="stylesheet">
-    <link href="/res/css/style.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="/statics/images/favicon.png" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/statics/css/styles.css">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-ga('create', 'UA-57627294-1', 'auto');
-ga('send', 'pageview');
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+        ga('create', 'UA-57627294-1', 'auto');
+        ga('send', 'pageview');
     </script>
-  </head>
-  <body>
-    <div class="header">
-      <h3>
-        <strong><a href="/index.html">p8952</a></strong>
-        <div class="pull-right">
-          <a href="/projects.html">Code</a>|<a href="/notes.html">Notes</a>|<a href="/photography.html">Photos</a>
-        </div>
-      </h3>
-    </div>
-    <br>
-    <br>
-    <h3>Listing EC2 Instances in All Regions</h3>
-<p>When working with EC2 instances across multiple regions I&#39;ve found it&#39;s near
+</head>
+
+<body>
+    <div class="container">
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">
+                        p8952
+                    </a>
+                </div>
+                <div class="collapse navbar-collapse" id="navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li  <li class="nav-item" >
+                            <a class="nav-link" href="/code"><i class="fa fa-code"></i> Code</a>
+                        </li>
+                        <li  <li class="nav-item" >
+                            <a class="nav-link" href="/posts"><i class="fa fa-comment-o"></i> Posts</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://github.com/p8952" target="_blank"><i class="fa fa-github"></i> GitHub</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://uk.linkedin.com/in/peterwilmott" target="_blank"><i class="fa fa-linkedin"></i> LinkedIn</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="container">
+            <h3>Listing EC2 Instances in All Regions</h3>
+<h3><small>December 11, 2014</small></h3>
+<p>When working with EC2 instances across multiple regions I’ve found it’s near
 impossible to get a good overview of what is running where. This can be
 especially annoying when you are automatically launching a number of short
 lived instances.</p>
@@ -38,67 +75,76 @@ currently have running I found it easier to just use the API and list active
 instances from the CLI.</p>
 
 <p>Install dependencies:</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">$ gem install aws-sdk pmap
-</code></pre></div>
+<div class="highlighter-rouge"><pre class="highlight"><code>$ gem install aws-sdk pmap
+</code></pre>
+</div>
+
 <p>/usr/local/bin/aws-list:</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">#!/usr/bin/ruby
+<div class="highlighter-rouge"><pre class="highlight"><code><span class="c1">#!/usr/bin/ruby</span>
 
-require &#39;aws-sdk&#39;
-require &#39;pmap&#39;
+<span class="nb">require</span> <span class="s1">'aws-sdk'</span>
+<span class="nb">require</span> <span class="s1">'pmap'</span>
 
-def ec2(region = &#39;us-east-1&#39;)
-    ec2 = AWS::EC2.new(
-        access_key_id: ENV[&#39;AWS_ACCESS_KEY&#39;],
-        secret_access_key: ENV[&#39;AWS_SECRET_KEY&#39;],
-        region: region
-    )
-    ec2
-end
+<span class="k">def</span> <span class="nf">ec2</span><span class="p">(</span><span class="n">region</span> <span class="o">=</span> <span class="s1">'us-east-1'</span><span class="p">)</span>
+	<span class="n">ec2</span> <span class="o">=</span> <span class="no">AWS</span><span class="o">::</span><span class="no">EC2</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span>
+		<span class="ss">access_key_id: </span><span class="no">ENV</span><span class="p">[</span><span class="s1">'AWS_ACCESS_KEY'</span><span class="p">],</span>
+		<span class="ss">secret_access_key: </span><span class="no">ENV</span><span class="p">[</span><span class="s1">'AWS_SECRET_KEY'</span><span class="p">],</span>
+		<span class="ss">region: </span><span class="n">region</span>
+	<span class="p">)</span>
+	<span class="n">ec2</span>
+<span class="k">end</span>
 
-def list_instances
-    instances = []
-    ec2.regions.peach do |region|
-        ec2.regions[region.name].instances.peach do |instance|
-            next if instance.status == :terminated
-            instances &lt;&lt; instance
-        end
-    end
-    instances
-end
+<span class="k">def</span> <span class="nf">list_instances</span>
+	<span class="n">instances</span> <span class="o">=</span> <span class="p">[]</span>
+	<span class="n">ec2</span><span class="p">.</span><span class="nf">regions</span><span class="p">.</span><span class="nf">peach</span> <span class="k">do</span> <span class="o">|</span><span class="n">region</span><span class="o">|</span>
+		<span class="n">ec2</span><span class="p">.</span><span class="nf">regions</span><span class="p">[</span><span class="n">region</span><span class="p">.</span><span class="nf">name</span><span class="p">].</span><span class="nf">instances</span><span class="p">.</span><span class="nf">peach</span> <span class="k">do</span> <span class="o">|</span><span class="n">instance</span><span class="o">|</span>
+			<span class="k">next</span> <span class="k">if</span> <span class="n">instance</span><span class="p">.</span><span class="nf">status</span> <span class="o">==</span> <span class="ss">:terminated</span>
+			<span class="n">instances</span> <span class="o">&lt;&lt;</span> <span class="n">instance</span>
+		<span class="k">end</span>
+	<span class="k">end</span>
+	<span class="n">instances</span>
+<span class="k">end</span>
 
-list_instances.peach do |instance|
-    puts &quot;#{instance.id}\t\t#{instance.availability_zone}\t\t#{instance.status}\t\t#{instance.ip_address}\n&quot;
-end
-</code></pre></div>
+<span class="n">list_instances</span><span class="p">.</span><span class="nf">peach</span> <span class="k">do</span> <span class="o">|</span><span class="n">instance</span><span class="o">|</span>
+	<span class="nb">puts</span> <span class="s2">"</span><span class="si">#{</span><span class="n">instance</span><span class="p">.</span><span class="nf">id</span><span class="si">}</span><span class="se">\t\t</span><span class="si">#{</span><span class="n">instance</span><span class="p">.</span><span class="nf">availability_zone</span><span class="si">}</span><span class="se">\t\t</span><span class="si">#{</span><span class="n">instance</span><span class="p">.</span><span class="nf">status</span><span class="si">}</span><span class="se">\t\t</span><span class="si">#{</span><span class="n">instance</span><span class="p">.</span><span class="nf">ip_address</span><span class="si">}</span><span class="se">\n</span><span class="s2">"</span>
+<span class="k">end</span>
+</code></pre>
+</div>
+
 <p>Listing instances:</p>
-<div class="highlight"><pre><code class="language-text" data-lang="text">$ export AWS_ACCESS_KEY=&quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;
-$ export AWS_SECRET_KEY=&quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890&quot;
+<div class="highlighter-rouge"><pre class="highlight"><code>$ export AWS_ACCESS_KEY="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+$ export AWS_SECRET_KEY="ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890"
 $ aws-list
-i-16b78754          eu-west-1a          running         54.77.218.113
-i-0025e1e6          eu-west-1a          running         54.76.129.127
-i-3926e2df          eu-west-1a          running         54.154.52.146
-i-4924e0af          eu-west-1a          running         54.154.52.77
-i-c424e022          eu-west-1a          running         54.72.131.127
-i-0c25e1ea          eu-west-1a          running         54.154.51.140
-i-9c25e17a          eu-west-1a          running         54.154.49.204
-i-4b24e0ad          eu-west-1a          running         54.77.225.135
-i-33e929f2          eu-central-1b       running         54.93.164.233
-i-c324e025          eu-west-1a          running         54.76.98.165
-i-3f26e2d9          eu-west-1a          running         54.154.47.126
-i-8027e366          eu-west-1a          running         54.154.20.140
-i-0d25e1eb          eu-west-1a          running         54.77.100.132
-i-d718edd9          us-west-2c          running         54.149.35.63
-i-0c2028e6          us-east-1a          running         54.164.193.104
-i-5b95e54e          sa-east-1a          running         54.94.165.7
-i-2dad38de          ap-northeast-1a     running         54.65.157.129
-i-625a80af          ap-southeast-1a     running         54.169.195.201
-i-a06e006f          ap-southeast-2a     running         54.66.184.34
-i-2dbce5e5          us-west-1a          running         54.67.67.18
-</code></pre></div>
+i-16b78754  eu-west-1a          running     54.77.218.113
+i-0025e1e6  eu-west-1a          running     54.76.129.127
+i-3926e2df  eu-west-1a          running     54.154.52.146
+i-4924e0af  eu-west-1a          running     54.154.52.77
+i-c424e022  eu-west-1a          running     54.72.131.127
+i-0c25e1ea  eu-west-1a          running     54.154.51.140
+i-9c25e17a  eu-west-1a          running     54.154.49.204
+i-4b24e0ad  eu-west-1a          running     54.77.225.135
+i-33e929f2  eu-central-1b       running     54.93.164.233
+i-c324e025  eu-west-1a          running     54.76.98.165
+i-3f26e2d9  eu-west-1a          running     54.154.47.126
+i-8027e366  eu-west-1a          running     54.154.20.140
+i-0d25e1eb  eu-west-1a          running     54.77.100.132
+i-d718edd9  us-west-2c          running     54.149.35.63
+i-0c2028e6  us-east-1a          running     54.164.193.104
+i-5b95e54e  sa-east-1a          running     54.94.165.7
+i-2dad38de  ap-northeast-1a     running     54.65.157.129
+i-625a80af  ap-southeast-1a     running     54.169.195.201
+i-a06e006f  ap-southeast-2a     running     54.66.184.34
+i-2dbce5e5  us-west-1a          running     54.67.67.18
+</code></pre>
+</div>
 
+<hr>
+<p class="pull-left">Share on <a href="https://twitter.com/intent/tweet?text=Listing EC2 instances in all regions&url=https://p8952.info/aws/2014/12/11/aws-listing-all-regions.html&via=p8952_">Twitter</a></p>
+<p class="pull-right">Comments <a href="https://twitter.com/p8952_">@p8952_</a></p>
+<br>
+<br>
+        </div>
+    </div>
+</body>
 
-
-<small>December 11, 2014</small>
-
-  </body>
 </html>

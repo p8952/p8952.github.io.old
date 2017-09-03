@@ -4,7 +4,7 @@
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>p8952 - VMware ESXi MEMORY_SIZE_ERROR</title>
+    <title>p8952 - {{ page.title }}</title>
     <link rel="icon" type="image/png" href="/statics/images/favicon.png" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
@@ -46,10 +46,10 @@
                 </div>
                 <div class="collapse navbar-collapse" id="navbar-collapse">
                     <ul class="nav navbar-nav navbar-right">
-                        <li  <li class="nav-item" >
+                        <li {% if page.title=='Code' %} class="nav-item active" {% else %} <li class="nav-item" {% endif %}>
                             <a class="nav-link" href="/code"><i class="fa fa-code"></i> Code</a>
                         </li>
-                        <li  <li class="nav-item" >
+                        <li {% if page.title=='Posts' %} class="nav-item active" {% else %} <li class="nav-item" {% endif %}>
                             <a class="nav-link" href="/posts"><i class="fa fa-comment-o"></i> Posts</a>
                         </li>
                         <li class="nav-item">
@@ -63,70 +63,7 @@
             </div>
         </nav>
         <div class="container">
-            <h3>VMware ESXi MEMORY_SIZE_ERROR</h3>
-<h3><small>April 22, 2014</small></h3>
-<p>VMware’s ESXi 5.5 increases the recommend memory requirement from 4GB to 8GB,
-their own System Requirements document stating that:</p>
-
-<p>“You have 4GB RAM. This is the minimum required to install ESXi 5.5. Provide at
-least 8GB of RAM to take full advantage of ESXi features and run virtual
-machines in typical production environments.”</p>
-
-<p>However when installing ESXi on a system with 4GB of RAM you will receive an
-error along the lines of:</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>&lt;MEMORY_SIZE ERROR: This host has 3.71 GiB of RAM. 3.97 GiB are needed&gt;
-</code></pre>
-</div>
-
-<p>You’ll notice that the people writing the System Requirements document are using
-the SI unit of gigabyte (GB) while those writing the ESXi installer are using
-the binary unit of gibibyte (GiB). As such ESXi does not require 4,000,000,000
-bytes of RAM but 4,294,967,296.</p>
-
-<p>Luckily the fix is easy, we can modify the amount minimum amount of RAM the
-installer checks for and it will install without issue.</p>
-
-<p>Switch to the virtual terminal by hitting Alt+F1 and login as ‘root’ with the
-password field blank.</p>
-
-<p>After logging in you need to tweak the permissions on upgrade_precheck.py:</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>$ cd /usr/lib/vmware/weasel/util/
-$ rm upgrade_precheck.pyc
-$ cp upgrade_precheck.py upgrade_precheck.py.tmp
-$ cp upgrade_precheck.py.tmp upgrade_precheck.py
-$ chmod 777 upgrade_precheck.py
-</code></pre>
-</div>
-
-<p>Open up upgrade_precheck.py in vi and replace:</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>MEM_MIN_SIZE = (4 * 1024 - 32) * SIZE_MiB
-</code></pre>
-</div>
-
-<p>With:</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>MEM_MIN_SIZE = (2 * 1024 - 32) * SIZE_MiB
-</code></pre>
-</div>
-
-<p>Then restart the ESXi installer by killing the weasel process.</p>
-
-<div class="highlighter-rouge"><pre class="highlight"><code>$ ps -c | grep weasel
-$ kill 12345
-</code></pre>
-</div>
-
-<p>You will automatically get switched away from the virtual terminal and can
-continue the installation.</p>
-
-<hr>
-<p class="pull-left">Share on <a href="https://twitter.com/intent/tweet?text=VMware ESXi MEMORY_SIZE_ERROR&url=https://p8952.info/vmware/2014/04/22/vmware-esxi-memory-limit.html&via=p8952_">Twitter</a></p>
-<p class="pull-right">Comments <a href="https://twitter.com/p8952_">@p8952_</a></p>
-<br>
-<br>
+            {{ content }}
         </div>
     </div>
 </body>

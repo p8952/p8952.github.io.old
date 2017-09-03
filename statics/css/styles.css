@@ -1,0 +1,45 @@
+h1, h2, h3, h4, h5, h6 {
+	font-family: Georgia, Times, serif;
+}
+
+p, li {
+	font-family: Verdana, Arial, sans-serif;
+}
+
+@media (min-width: 1200px) {
+    .container{
+        max-width: 672px;
+    }
+}
+
+.graph-total-container {
+	width: 640px;
+	height: 512px;
+}
+
+.graph-total-plot {
+	width: 80%;
+	height: 100%;
+	float: left;
+}
+
+.graph-total-options {
+	width: 20%;
+	float: right;
+}
+
+.graph-percent-container {
+	width: 640px;
+	height: 512px;
+}
+
+.graph-percent-plot {
+	width: 80%;
+	height: 100%;
+	float: left;
+}
+
+.graph-percent-options {
+	width: 20%;
+	float: right;
+}

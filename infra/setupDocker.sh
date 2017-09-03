@@ -13,9 +13,9 @@ if [[ ! -f /docker.img ]]; then
 fi
 
 yum install -y -q yum-utils
-yum-config-manager --add-repo https://docs.docker.com/engine/installation/linux/repo_files/centos/docker.repo
+yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
 yum makecache fast
-yum install -y -q docker-engine-1.13.0
+yum install -y -q docker-ce
 mkdir -p /etc/systemd/system/docker.service.d/
 echo '[Service]' > /etc/systemd/system/docker.service.d/override.conf
 echo 'ExecStartPre=' >> /etc/systemd/system/docker.service.d/override.conf
